@@ -1,4 +1,3 @@
-// noan
 
 var stateofBeaker
 var stateofClipboard
