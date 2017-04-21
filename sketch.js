@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
+// v3
 var stateofBeaker
 var stateofClipboard
 var stateofairvent
