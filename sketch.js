@@ -1,18 +1,43 @@
-// noan
-
 var stateofBeaker
 var stateofClipboard
 var stateofairvent
+
+
+var canvas;
+
+// lock variables for canvas 2 lock combination
+var lock4;
+var lock3; 
+var lock2;
+var lock1;
+
+// lock  for canvas change 
+var lock; 
+
+// variables for the combination changing in canvas 2 (moving the numbers from 1 to 9)
+var lockcombo;
+var lockcombo2; 
+var lockcombo3;
+var lockcombo4;
+
+//lock varibables for sizes 
+var px1 = 160; 
+var px2 = 183; 
+var px3 = 206; 
+var px4 = 229; 
+
+
+var py = 450;
 
 
 function preload()
 {
   
   
- //clocksound = loadSound('https://dl.dropboxusercontent.com/s/h3hyhr90tod8hph/21938111.mp3?dl=0')
+ clocksound = loadSound('https://dl.dropboxusercontent.com/s/h3hyhr90tod8hph/21938111.mp3?dl=0')
   
   
-  //lockticking = loadSound('https://dl.dropboxusercontent.com/s/jfx7a6du3vprh2c/pocket%20watch%20sound%20effect%20clock%20ticking%20fast%20sounds.mp3?dl=0') //Switching canvas sound
+  clockticking = loadSound('https://dl.dropboxusercontent.com/s/jfx7a6du3vprh2c/pocket%20watch%20sound%20effect%20clock%20ticking%20fast%20sounds.mp3?dl=0') //Switching canvas sound
   
   
 
@@ -61,6 +86,24 @@ function preload()
  traincar = loadImage('https://dl.dropbox.com/s/5hg1qd41enlm9mz/027-wes-anderson-theredlist.jpeg?dl=0')
  screwdriver = loadImage('https://dl.dropbox.com/s/dev5xn3sfnnehfl/screwdriver_PNG9512.png?dl=0')
  airvent = loadImage('https://dl.dropbox.com/s/rhardb91fpnrflg/airvent.png?dl=0')
+ codeairvent = loadImage('https://dl.dropbox.com/s/amsyrs2wt1ycbjw/code.png?dl=0')
+ 
+ 
+ //Barn
+ 
+ barn = loadImage('https://dl.dropbox.com/s/8kguz5qsaru9dp4/2951584808_4ab1eacfab_b.jpg?dl=0')
+ 
+ violin = loadImage('https://dl.dropbox.com/s/n2wgx3oct9ftdc1/violin.png?dl=0')
+ 
+ openviolin = loadImage('https://dl.dropbox.com/s/0hggf60oecdec0p/opencase.png?dl=0')
+ 
+ bomb = 
+   loadImage('https://dl.dropbox.com/s/fy6oij5q5q11trk/StickyBomb-GTAV.png?dl=0')
+ 
+ 
+ screwin = loadSound('https://dl.dropboxusercontent.com/s/1offj9ao6il0wba/Screw%20In%20Sound%20Effect.mp3?dl=0') 
+ 
+ bombexplosion = loadSound('https://dl.dropboxusercontent.com/s/xzxjalohyvk4jic/Bomb%20Exploding%20Sound%20Effect.mp3?dl=0')
  
  
 }
@@ -70,7 +113,7 @@ function setup()
   
   //Default
   createCanvas(830,600);
-  canvas = 3.1;
+  canvas = 1;
   lock = false;
  
 
@@ -82,6 +125,7 @@ function setup()
   endBeakerX = 543;
   endBeakerY = 300;
   stateofBeaker = 1;
+
   
     //passwords
     a = false;
@@ -94,19 +138,44 @@ function setup()
   
   //Canvas 3
   frameRate(30);
-  time = 0
   
-  timer = 0 
+  timer = 0
+  
+  time = 0
   
   cargohatch = 0
   
   stateofairvent = 0
   
+  stateofscrewdriver = 0
+  
+  screw1 = 0
+  screw2 = 0
+  screw3 = 0
+  screw4 = 0
+  
+  //barn 
+  lock = false; 
+  lock1 = false;
+  lock2 = false; 
+  lock3 = false;
+  lock4 = false
+
+  lockcombo = 1;
+  lockcombo2 = 1; 
+  lockcombo3 = 1; 
+  lockcombo4 = 1;
+  
+  stateofviolincase = 1
+
+  stateofbomb = 0
 
 }
 
 function draw()
 {
+  
+  
   if (canvas == 1)
   {
     canvas1();
@@ -131,10 +200,6 @@ function draw()
   {
     canvas3_2();
   }
-  else if (canvas == 3.3)
-  {
-    canvas3_3();
-  }
   else if (canvas == 3.5)
   {
     canvas3_1_1();
@@ -149,8 +214,13 @@ function draw()
   }
   
   
-  if (timer == 1) //Timer
+  
+  if (timer == 0)
   {
+  }
+  else if (timer == 1) //Timer
+  {
+    fill(255,0,0);
     time = time + 1
     
     if(time == 150)
@@ -171,23 +241,46 @@ function draw()
     }
     if(time == 750)
     {
-      clockticking.play()  
+      clockticking.play()   
     }
-    if(time == 900)
+    if(time >= 900)
     {
-      canvas = 3.3
-    }
-    if(time == 1050)
-    {
-      clockticking.play()  
-    }
-    if(time == 1200)
-    {
-      canvas = 3
-      time = 0
+      canvas = 3;
+      time = 0;
     }
   }
   
+  if (time==599)
+  {
+    stateofairvent = 0;
+
+    stateofscrewdriver = 0;
+
+    screw1 = 0;
+    screw2 = 0;
+    screw3 = 0;
+    screw4 = 0;
+  }
+  
+  text(time,10,10);
+  text(mouseX,50,10);
+  text(mouseY,50,30);
+  
+  
+  
+  //barn
+  
+  
+  if(canvas == 3.2 && stateofviolincase == 0)
+  {
+  passCode1();
+  }
+  
+  
+  if(lockcombo == 1 && lockcombo2 == 9 && lockcombo3 == 10 && lockcombo4 == 1)
+  {
+    stateofviolincase = 1
+  }
   
   
 }
@@ -521,6 +614,7 @@ function canvas3() // Airplane
   
   if (cargohatch == 1) //Opened hatch
   {
+    timer = 0
     image(openhatch,60,260,130,130) 
     
     if(mouseX > 60 && mouseX < 190 && mouseY > 260 && mouseY < 390 && mouseIsPressed == true)
@@ -528,6 +622,26 @@ function canvas3() // Airplane
       canvas = 3.5
     }
   }
+  
+  
+
+  if (stateofbomb == 1)
+  {
+    image(bomb, 107,533,54,44)
+
+  }
+  
+
+  if(mouseX > 107 && mouseX < 180 && mouseY > 533 && mouseY < 580)
+  {
+    cursor(HAND);
+    if (mouseIsPressed == true)
+    {
+      stateofbomb = 2
+    }
+
+  }
+  
   
 }
 
@@ -546,31 +660,188 @@ function canvas3_1() //Train car
 {
   cursor(ARROW);
   image(traincar,0,0,830,520)
+  itemGrid();
+  
   
   if (stateofairvent==0)
   {
     image(airvent, 620,405,200,105)
+    
+  }
+  if (stateofairvent==1)
+  {
+    
+    image(codeairvent, 620,405,200,105)
+
   }
   
   
-  itemGrid();
+  
+  if(mouseX > 60 && mouseX < 140 && mouseY > 430 && mouseY < 490)
+  {
+    cursor(HAND);
+    if (mouseIsPressed == true)
+    {
+      stateofscrewdriver = 1
+    }
 
+  }
+  
+  
+  if(mouseX > 20 && mouseX < 90 && mouseY > 520 && mouseY < 590)
+  {
+    cursor(HAND);
+    if (mouseIsPressed == true)
+    {
+      stateofscrewdriver = 2
+    }
+
+  }
+  
+  if (stateofscrewdriver==0)
+  {
+    image(screwdriver,60,430,80,60)
+  }
+  if (stateofscrewdriver==1)
+  {
+    image(screwdriver,29,530,60,48)
+    
+  }
+  if (stateofscrewdriver==2)
+  {
+
+    noCursor();
+    image(screwdriver,mouseX-25,mouseY-25,50,50);
+    
+    
+
+    if(mouseX > 620 && mouseX < 641 && mouseY > 407 && mouseY < 422)
+    {
+      cursor(HAND);
+      if (mouseIsPressed == true)
+      {
+        screw1 = 1
+        screwin.play() 
+      }
+
+    }
+
+    if(mouseX > 620 && mouseX < 641 && mouseY > 494 && mouseY < 509)
+    {
+      cursor(HAND);
+      if (mouseIsPressed == true)
+      {
+        screw2 = 1
+        screwin.play() 
+      }
+
+    }
+
+    if(mouseX > 791 && mouseX < 818 && mouseY > 407 && mouseY < 422)
+    {
+      cursor(HAND);
+      if (mouseIsPressed == true)
+      {
+        screw3 = 1
+        screwin.play() 
+      }
+
+    }
+
+    if(mouseX > 791 && mouseX < 818 && mouseY > 494 && mouseY < 509)
+    {
+      cursor(HAND);
+      if (mouseIsPressed == true)
+      {
+        screw4 = 1
+        screwin.play() 
+      }
+
+    }
+    
+    
+    if(screw1==1 && screw2==1 && screw3==1 && screw4==1)
+    {
+      stateofscrewdriver=3
+    }
+
+   
+  }
+
+  
+  if (stateofscrewdriver==3)
+  {
+    stateofairvent=1
+  }
+
+
+  
+ 
 }
 
 
-function canvas3_2() // Prison Courtyard -> Cell
+function canvas3_2() // barn
 {
   cursor(ARROW);
-  background(2,11,152)
+  image(barn,0,0,830,520)
   itemGrid();
+  
+  
+  if (stateofviolincase == 0)
+  {
+  image(violin,100,320,400,250)
+  }
+  
+  
+
+  if (stateofviolincase == 1)
+  {
+    image(openviolin,100,270,400,250)
+    
+    if (stateofbomb == 0) 
+    {
+    image(bomb, 335,380,100,70)
+    }
+    
+    if(mouseX > 345 && mouseX < 425 && mouseY > 380 && mouseY < 440)
+    {
+      cursor(HAND);
+      if (mouseIsPressed == true)
+      {
+        
+        stateofbomb = 1
+        
+        
+        //bomb moves
+      }
+    }
+        
+    
+    
+  if (stateofbomb == 1)
+  {
+    image(bomb, 107,533,54,44)
+    
+  }
+   
+    
+  }
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 }
 
-function canvas3_3() // Prison Courtyard -> Cell
-{
-  cursor(ARROW);
-  background(55,33,200)
-  itemGrid();
-}
 function canvas4() // Cell -> Prison Corridor
 {
 
@@ -621,9 +892,453 @@ function itemGrid()
 
 function mouseReleased()
 {
-  if (lock)
+ 
+  
+  if(lock1== true)
   {
-    lock = false;
+    lock1 = false; 
+  }
+
+  if(lock2== true)
+  {
+    lock2 = false; 
+  }
+
+  if(lock3 == true)
+  {
+    lock3 = false; 
+  }
+
+  if(lock4 ==true)
+  {
+    lock4 = false;
   }
 }
+
+function passCode1()
+{
+  pass1Button();
+  pass2Button();
+  pass3Button();
+  pass4Button();
+
+  fill(255);
+  rect(px1-2,455,20,20);
+  rect(px2-3,455,20,20);
+  rect(px3-3,455,20,20);
+  rect(px4-3,455,20,20);
+
+  //grey button which is the combination options for the key lock. 
+  fill(155);
+  rect(px1,py,15,6);
+  rect(px2,py,15,6);
+  rect(px3,py,15,6);
+  rect(px4,py,15,6);
+
+  fill(0);
+  strokeWeight(0);
+
+  if(lockcombo == 1)
+  {
+    text("1",px1+5,py+20);
+  }
+  else if(lockcombo == 2)
+  {
+    text ("2",px1+5,py+20);
+  }
+  else if(lockcombo ==3)
+  {
+    text("3",px1+5,py+20);
+  }
+  else if(lockcombo == 4)
+  {
+    text("4",px1+5,py+20);
+  }
+  else if(lockcombo == 5)
+  {
+    text("5",px1+5,py+20);
+  }
+  else if(lockcombo ==6)
+  {
+    text("6",px1+5,py+20);
+  }
+  else if(lockcombo == 7)
+  {
+    text("7",px1+5,py+20);
+  }
+  else if(lockcombo ==8)
+  {
+    text("8",px1+5,py+20);
+  }
+  else if(lockcombo == 9)
+  {
+    text("9",px1+5,py+20);
+  }
+  else if(lockcombo == 10)
+  {
+    text("0",px1+5,py+20);
+  }
+
+  if(lockcombo2 == 1)
+  {
+    text("1",px2+5,py+20);
+  }
+  else if(lockcombo2 == 2)
+  {
+    text ("2",px2+5,py+20);
+  }
+  else if(lockcombo2==3)
+  {
+    text("3",px2+5,py+20);
+  }
+  else if(lockcombo2 == 4)
+  {
+    text("4",px2+5,py+20);
+  }
+  else if(lockcombo2 == 5)
+  {
+    text("5",px2+5,py+20);
+  }
+  else if(lockcombo2 ==6)
+  {
+    text("6",px2+5,py+20);
+  }
+  else if(lockcombo2 == 7)
+  {
+    text("7",px2+5,py+20);
+  }
+  else if(lockcombo2 ==8)
+  {
+    text("8",px2+5,py+20);
+  }
+  else if(lockcombo2 == 9)
+  {
+    text("9",px2+5,py+20);
+  }
+  else if(lockcombo2 == 10)
+  {
+    text("0",px2+5,py+20);
+  }
+
+  if(lockcombo3 == 1)
+  {
+    text("1",px3+5,py+20);
+  }
+  else if(lockcombo3 == 2)
+  {
+    text ("2",px3+5,py+20);
+  }
+  else if(lockcombo3 ==3)
+  {
+    text("3",px3+5,py+20);
+  }
+  else if(lockcombo3 == 4)
+  {
+    text("4",px3+5,py+20);
+  }
+  else if(lockcombo3 == 5)
+  {
+    text("5",px3+5,py+20);
+  }
+  else if(lockcombo3 ==6)
+  {
+    text("6",px3+5,py+20);
+  }
+  else if(lockcombo3 == 7)
+  {
+    text("7",px3+5,py+20);
+  }
+  else if(lockcombo3 ==8)
+  {
+    text("8",px3+5,py+20);
+  }
+  else if(lockcombo3 == 9)
+  {
+    text("9",px3+5,py+20);
+  }
+  else if(lockcombo3 == 10)
+  {
+    text("0",px3+5,py+20);
+  }
+  
+  
+  
+  if(lockcombo4 == 1)
+  {
+    text("1",px4+5,py+20);
+  }
+  else if(lockcombo4 == 2)
+  {
+    text ("2",px4+5,py+20);
+  }
+  else if(lockcombo4 ==3)
+  {
+    text("3",px4+5,py+20);
+  }
+  else if(lockcombo4 == 4)
+  {
+    text("4",px4+5,py+20);
+  }
+  else if(lockcombo4 == 5)
+  {
+    text("5",px4+5,py+20);
+  }
+  else if(lockcombo4 ==6)
+  {
+    text("6",px4+5,py+20);
+  }
+  else if(lockcombo4 == 7)
+  {
+    text("7",px4+5,py+20);
+  }
+  else if(lockcombo4 ==8)
+  {
+    text("8",px4+5,py+20);
+  }
+  else if(lockcombo4 == 9)
+  {
+    text("9",px4+5,py+20);
+  }
+  else if(lockcombo4 == 10)
+  {
+    text("0",px4+5,py+20);
+  }
+
+
+}
+
+function pass1Button()
+{
+  if (lock1 == false && mouseX > px1 && mouseX < px1+15 && mouseY > py && mouseY < py+6 && mouseIsPressed == true)
+  {
+    if(lockcombo == 1)
+    {
+      lockcombo = 2;
+      lock1 = true; 
+    }
+    else if(lockcombo == 2)
+    {
+      lockcombo = 3;
+      lock1 = true;
+    }
+    else if(lockcombo == 3) 
+    {
+      lockcombo = 4;
+      lock1 = true;
+    }
+    else if(lockcombo == 4)
+    {
+      lockcombo = 5;
+      lock1 = true;
+    }
+    else if(lockcombo == 5) 
+    {
+      lockcombo = 6;
+      lock1 = true;
+    }
+    else if(lockcombo == 6)
+    {
+      lockcombo = 7;
+      lock1 = true;
+    }
+    else if(lockcombo == 7) 
+    {
+      lockcombo = 8;
+      lock1 = true;
+    }
+    else if(lockcombo == 8)
+    {
+      lockcombo = 9;
+      lock1 = true;
+    }
+    else if(lockcombo == 9) 
+    {
+      lockcombo = 10; 
+      lock1 = true; 
+    }
+    else if(lockcombo == 10)
+    {
+      lockcombo = 1;
+      lock1 = true; 
+    }
+  }
+}
+
+function pass2Button()
+{
+  if (lock2 == false && mouseX > px2 && mouseX < px2+15 && mouseY > py && mouseY < py+6 && mouseIsPressed == true)
+  {
+    if(lockcombo2 == 1)
+    {
+      lockcombo2 = 2;
+      lock2 = true; 
+    }
+    else if(lockcombo2 == 2)
+    {
+      lockcombo2 = 3;
+      lock2 = true;
+    }
+    else if(lockcombo2 == 3) 
+    {
+      lockcombo2 = 4; 
+      lock2 = true; 
+    }
+    else if(lockcombo2 == 4)
+    {
+      lockcombo2 = 5;
+      lock2 = true; 
+    }
+    else if(lockcombo2 == 5) 
+    {
+      lockcombo2 = 6; 
+      lock2 = true; 
+    }
+    else if(lockcombo2 == 6)
+    {
+      lockcombo2 = 7;
+      lock2 = true; 
+    }
+    else if(lockcombo2 == 7) 
+    {
+      lockcombo2 = 8; 
+      lock2 = true; 
+    }
+    else if(lockcombo2 == 8)
+    {
+      lockcombo2 = 9;
+      lock2 = true; 
+    }
+    else if(lockcombo2 == 9) 
+    {
+      lockcombo2 = 10; 
+      lock2 = true; 
+    }
+    else if(lockcombo2 == 10)
+    {
+      lockcombo2 = 1;
+      lock2 = true; 
+    }
+  }
+}
+
+function pass3Button()
+{
+  if (lock3 == false && mouseX > px3 && mouseX < px3+15 && mouseY > py && mouseY < py+6 && mouseIsPressed == true)
+  {
+    if(lockcombo3 == 1)
+    {
+      lockcombo3 = 2;
+      lock3 = true; 
+    }
+    else if(lockcombo3 == 2)
+    {
+      lockcombo3 = 3;
+      lock3 = true;
+    }
+    else if(lockcombo3 == 3) 
+    {
+      lockcombo3 = 4; 
+      lock3 = true; 
+    }
+    else if(lockcombo3 == 4)
+    {
+      lockcombo3 = 5;
+      lock3 = true; 
+    }
+    else if(lockcombo3 == 5) 
+    {
+      lockcombo3 = 6; 
+      lock3 = true; 
+    }
+    else if(lockcombo3 == 6)
+    {
+      lockcombo3 = 7;
+      lock3 = true; 
+    }
+    else if(lockcombo3 == 7) 
+    {
+      lockcombo3 = 8; 
+      lock3 = true; 
+    }
+    else if(lockcombo3 == 8)
+    {
+      lockcombo3 = 9;
+      lock3 = true; 
+    }
+    else if(lockcombo3 == 9) 
+    {
+      lockcombo3 = 10; 
+      lock3 = true; 
+    }
+    else if(lockcombo3 == 10)
+    {
+      lockcombo3 = 1;
+      lock3 = true; 
+    }
+  }
+
+}
+
+
+function pass4Button()
+{
+  if (lock4 == false && mouseX > px4 && mouseX < px4+15 && mouseY > py && mouseY < py+6 && mouseIsPressed == true)
+  {
+    if(lockcombo4 == 1)
+    {
+      lockcombo4 = 2;
+      lock4 = true; 
+    }
+    else if(lockcombo4 == 2)
+    {
+      lockcombo4 = 3;
+      lock4 = true;
+    }
+    else if(lockcombo4 == 3) 
+    {
+      lockcombo4 = 4; 
+      lock4 = true; 
+    }
+    else if(lockcombo4 == 4)
+    {
+      lockcombo4 = 5;
+      lock4 = true; 
+    }
+    else if(lockcombo4 == 5) 
+    {
+      lockcombo4 = 6; 
+      lock4 = true; 
+    }
+    else if(lockcombo4 == 6)
+    {
+      lockcombo4 = 7;
+      lock4 = true; 
+    }
+    else if(lockcombo4 == 7) 
+    {
+      lockcombo4 = 8; 
+      lock4 = true; 
+    }
+    else if(lockcombo4 == 8)
+    {
+      lockcombo4 = 9;
+      lock4 = true; 
+    }
+    else if(lockcombo4 == 9) 
+    {
+      lockcombo4 = 10; 
+      lock4 = true; 
+    }
+    else if(lockcombo4 == 10)
+    {
+      lockcombo4 = 1;
+      lock4 = true; 
+    }
+  }
+
+}
+
+
+
+
 
