@@ -1,4 +1,5 @@
-// v3
+//v4
+
 var stateofBeaker
 var stateofClipboard
 var stateofairvent
@@ -112,6 +113,8 @@ function preload()
 function setup()
 {
   
+
+  
   //Default
   createCanvas(830,600);
   canvas = 1;
@@ -167,7 +170,7 @@ function setup()
   lockcombo3 = 1; 
   lockcombo4 = 1;
   
-  stateofviolincase = 1
+  stateofviolincase = 0
 
   stateofbomb = 0
 
@@ -175,6 +178,13 @@ function setup()
 
 function draw()
 {
+  
+
+/*
+    text(time,10,10);
+    text(mouseX,50,10);
+    text(mouseY,50,30);
+  */
   
   
   if (canvas == 1)
@@ -216,42 +226,39 @@ function draw()
   
   
   
-  if (timer == 0)
-  {
-  }
-  else if (timer == 1) //Timer
+  if (timer == 1) //Timer
   {
     fill(255,0,0);
     time = time + 1
     
-    if(time == 150)
-    {
-      clockticking.play()  
-    }
     if(time == 300)
     {
-      canvas = 3.1
+      clockticking.play()  
     }
     if(time == 450)
     {
-      clockticking.play()  
-    }
-    if(time == 600)
-    {
-      canvas = 3.2
+      canvas = 3.1
     }
     if(time == 750)
     {
+      clockticking.play()  
+    }
+    if(time == 900)
+    {
+      canvas = 3.2
+    }
+    if(time == 1200)
+    {
       clockticking.play()   
     }
-    if(time >= 900)
+    if(time == 1350)
     {
       canvas = 3;
       time = 0;
     }
   }
   
-  if (time==599)
+  if (time==900)
   {
     stateofairvent = 0;
 
@@ -262,10 +269,6 @@ function draw()
     screw3 = 0;
     screw4 = 0;
   }
-  
-  text(time,10,10);
-  text(mouseX,50,10);
-  text(mouseY,50,30);
   
   
   
@@ -283,6 +286,14 @@ function draw()
     stateofviolincase = 1
   }
   
+  
+  if (stateofbomb == 1)
+  {
+    image(bomb, 107,533,54,44)
+
+  }
+
+
   
 }
 
@@ -311,6 +322,12 @@ function canvas1() // Startscreen
       text("Start",345,420);
       canvas = 2;
     }
+  }
+  
+  if (stateofbomb == 1)
+  {
+    image(bomb, 107,533,54,44)
+
   }
 }
 
@@ -626,11 +643,7 @@ function canvas3() // Airplane
   
   
 
-  if (stateofbomb == 1)
-  {
-    image(bomb, 107,533,54,44)
 
-  }
   
 
   if(mouseX > 107 && mouseX < 180 && mouseY > 533 && mouseY < 580)
@@ -643,6 +656,29 @@ function canvas3() // Airplane
 
   }
   
+  if (stateofbomb == 2)
+  {
+  noCursor();
+  image(bomb,mouseX-25,mouseY-25,50,50);
+    if(mouseX > 60 && mouseX < 190 && mouseY > 260 && mouseY < 390)
+    {
+      cursor(HAND);
+      if (mouseIsPressed == true)
+      {
+        stateofbomb = 0
+        cargohatch = 1
+      }
+    }
+    
+    
+
+  }
+  
+  
+  
+  
+  
+  
   
 }
 
@@ -650,7 +686,7 @@ function canvas3() // Airplane
 
 function canvas3_1_1() // Violin case
 {
-
+  textSize(30);
   cursor(ARROW);
   background(25,51,52)
   itemGrid();
@@ -659,6 +695,7 @@ function canvas3_1_1() // Violin case
 
 function canvas3_1() //Train car
 {
+  textSize(30);
   cursor(ARROW);
   image(traincar,0,0,830,520)
   itemGrid();
@@ -783,6 +820,7 @@ function canvas3_1() //Train car
 
 function canvas3_2() // barn
 {
+  textSize(15);
   cursor(ARROW);
   image(barn,0,0,830,520)
   itemGrid();
@@ -818,12 +856,7 @@ function canvas3_2() // barn
     }
         
     
-    
-  if (stateofbomb == 1)
-  {
-    image(bomb, 107,533,54,44)
-    
-  }
+
    
     
   }
@@ -918,6 +951,7 @@ function mouseReleased()
 
 function passCode1()
 {
+  textSize(15);
   pass1Button();
   pass2Button();
   pass3Button();
@@ -1110,6 +1144,7 @@ function passCode1()
 
 function pass1Button()
 {
+  textSize(30);
   if (lock1 == false && mouseX > px1 && mouseX < px1+15 && mouseY > py && mouseY < py+6 && mouseIsPressed == true)
   {
     if(lockcombo == 1)
