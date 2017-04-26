@@ -1,5 +1,3 @@
-//v4
-
 var stateofBeaker
 var stateofClipboard
 var stateofairvent
@@ -35,11 +33,17 @@ var py = 450;
 function preload()
 {
   
+  /*
   
  clocksound = loadSound('https://dl.dropboxusercontent.com/s/h3hyhr90tod8hph/21938111.mp3?dl=0')
   
   
   clockticking = loadSound('https://dl.dropboxusercontent.com/s/jfx7a6du3vprh2c/pocket%20watch%20sound%20effect%20clock%20ticking%20fast%20sounds.mp3?dl=0') //Switching canvas sound
+  
+  
+  screwin = loadSound('https://dl.dropboxusercontent.com/s/1offj9ao6il0wba/Screw%20In%20Sound%20Effect.mp3?dl=0') 
+
+  bombexplosion = loadSound('https://dl.dropboxusercontent.com/s/xzxjalohyvk4jic/Bomb%20Exploding%20Sound%20Effect.mp3?dl=0') */
   
   
 
@@ -103,9 +107,7 @@ function preload()
    loadImage('https://dl.dropbox.com/s/fy6oij5q5q11trk/StickyBomb-GTAV.png?dl=0')
  
  
- screwin = loadSound('https://dl.dropboxusercontent.com/s/1offj9ao6il0wba/Screw%20In%20Sound%20Effect.mp3?dl=0') 
- 
- bombexplosion = loadSound('https://dl.dropboxusercontent.com/s/xzxjalohyvk4jic/Bomb%20Exploding%20Sound%20Effect.mp3?dl=0')
+
  
  
 }
@@ -180,12 +182,7 @@ function draw()
 {
   
 
-/*
-    text(time,10,10);
-    text(mouseX,50,10);
-    text(mouseY,50,30);
-  */
-  
+
   
   if (canvas == 1)
   {
@@ -210,10 +207,6 @@ function draw()
   else if (canvas == 3.2)
   {
     canvas3_2();
-  }
-  else if (canvas == 3.5)
-  {
-    canvas3_1_1();
   }
   else if (canvas == 5)
   {
@@ -293,6 +286,12 @@ function draw()
 
   }
 
+  
+  fill(0,0,0)
+  text(time,10,10);
+  text(mouseX,50,10);
+  text(mouseY,50,30);
+
 
   
 }
@@ -344,7 +343,7 @@ function canvas2() // Lab
   
   image(Number1,550,350,30,40)
   
-  image(Dummykeypad,280,300,30,40);
+  image(Dummykeypad,220,300,30,40);
   
 
 
@@ -439,7 +438,7 @@ function canvas2() // Lab
 
   //Dummy Keycode
 
-  if (mouseX > 280 && mouseX < 320 && mouseY > 300 && mouseY < 340)
+  if (mouseX > 220 && mouseX < 250 && mouseY > 300 && mouseY < 340)
   {
     cursor(HAND);
     if (mouseIsPressed == true)
@@ -491,7 +490,7 @@ function canvas2_1() // Password Codes
       rect(255,285,90,90);
       textSize(50);
       text("7",570+50,120);
-      if (b == true && a == true)
+      if (a == true && b == true)
       {
         c = true;
       }
@@ -637,11 +636,11 @@ function canvas3() // Airplane
     
     if(mouseX > 60 && mouseX < 190 && mouseY > 260 && mouseY < 390 && mouseIsPressed == true)
     {
-      canvas = 3.5
+      canvas = 5
     }
   }
   
-  
+   
 
 
   
@@ -682,15 +681,6 @@ function canvas3() // Airplane
   
 }
 
-
-
-function canvas3_1_1() // Violin case
-{
-  textSize(30);
-  cursor(ARROW);
-  background(25,51,52)
-  itemGrid();
-}
 
 
 function canvas3_1() //Train car
@@ -876,15 +866,12 @@ function canvas3_2() // barn
   
 }
 
-function canvas4() // Cell -> Prison Corridor
-{
-
-  itemGrid();
-}
 
 function canvas5() // Outside
 {
-
+  
+  
+  
   itemGrid();
 }
 
