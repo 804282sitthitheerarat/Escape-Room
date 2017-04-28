@@ -2,6 +2,24 @@ var stateofBeaker
 var stateofClipboard
 var stateofairvent
 
+var hourhandOrientation;
+var hourhandOrientation2;
+
+var minutehandOrientation;
+var minutehandOrientation2;
+
+var hourhandX;
+var hourhandY;
+
+var minutehandX2;
+var minutehandY2;
+
+var hourhandDistance;
+var minutehandDistance2;
+
+var hourhandlock;
+var minutehandlock2;
+
 
 var canvas;
 
@@ -33,9 +51,8 @@ var py = 450;
 function preload()
 {
   
-  /*
   
- clocksound = loadSound('https://dl.dropboxusercontent.com/s/h3hyhr90tod8hph/21938111.mp3?dl=0')
+/* clocksound = loadSound('https://dl.dropboxusercontent.com/s/h3hyhr90tod8hph/21938111.mp3?dl=0')
   
   
   clockticking = loadSound('https://dl.dropboxusercontent.com/s/jfx7a6du3vprh2c/pocket%20watch%20sound%20effect%20clock%20ticking%20fast%20sounds.mp3?dl=0') //Switching canvas sound
@@ -108,7 +125,30 @@ function preload()
  
  
 
+ //lab
  
+ beachhouse = loadImage('https://dl.dropbox.com/s/b77jcwt0jat6hhy/Beach-House-Interior-And-Exterior-Design-Ideas-To-Inspire-You-1-1.jpg?dl=0')
+ 
+ //hourhand
+ 
+ hourhandwest = loadImage('https://dl.dropbox.com/s/nu9io89axto886i/hour%20hand%20west.png?dl=0')
+ 
+ hourhandsouth = loadImage('https://dl.dropbox.com/s/g8la21xt31zqud7/hour%20hand%20south.png?dl=0')
+ 
+ hourhandeast = loadImage('https://dl.dropbox.com/s/lokjarkaiuvxsdq/hour%20hand%20east.png?dl=0')
+                          
+ hourhandnorth = loadImage('https://dl.dropbox.com/s/a4m7okrvmf90rxg/hour%20hand%20north.png?dl=0')
+ 
+ 
+ //minutehand
+ 
+ minutehandnorth = loadImage('https://dl.dropbox.com/s/zf1phag4sqg6wf4/minute%20hand%20north.png?dl=0')
+ 
+ minutehandsouth = loadImage('https://dl.dropbox.com/s/farox01c5lx0b01/minute%20hand%20south.png?dl=0')
+ 
+ minutehandeast = loadImage('https://dl.dropbox.com/s/0yvq2cn67id1muz/minute%20hand%20east.png?dl=0')
+ 
+ minutehandwest = loadImage('https://dl.dropbox.com/s/1jh4r1u8kgl1yc4/minute%20hand%20west.png?dl=0')
  
 }
 
@@ -119,7 +159,7 @@ function setup()
   
   //Default
   createCanvas(830,600);
-  canvas = 1;
+  canvas = 5;
   lock = false;
  
 
@@ -175,11 +215,18 @@ function setup()
   stateofviolincase = 0
 
   stateofbomb = 0
+  
+  
+  //Lab with clock
+  
+  hourhandorientation = 0
+  minutehandorientation = 0
 
 }
 
 function draw()
 {
+  
   
 
 
@@ -217,6 +264,11 @@ function draw()
     canvas = 1;
   }
   
+  fill(0,0,0)
+  text(time,10,10);
+  text(mouseX,50,10);
+  text(mouseY,50,30);
+
   
   
   if (timer == 1) //Timer
@@ -287,10 +339,6 @@ function draw()
   }
 
   
-  fill(0,0,0)
-  text(time,10,10);
-  text(mouseX,50,10);
-  text(mouseY,50,30);
 
 
   
@@ -869,9 +917,8 @@ function canvas3_2() // barn
 
 function canvas5() // Outside
 {
-  
-  
-  
+  image(beachhouse,0,0,830,600)
+
   itemGrid();
 }
 
