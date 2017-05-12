@@ -1,3 +1,4 @@
+//May 12
 var stateofBeaker
 var stateofClipboard
 var stateofairvent
@@ -51,8 +52,26 @@ var py = 450;
 function preload()
 {
   
+
+
+
+  intro = loadSound('https://dl.dropboxusercontent.com/s/o11p87r4pzcvb0b/Introduction.m4a?dl=0')
   
-/* clocksound = loadSound('https://dl.dropboxusercontent.com/s/h3hyhr90tod8hph/21938111.mp3?dl=0')
+  room1music = loadSound('https://dl.dropboxusercontent.com/s/83o0z304ngife0r/Room%20No.1.m4a?dl=0')
+  
+  room2music = loadSound('https://dl.dropboxusercontent.com/s/sxqzvkyljpugmkj/Room%202.m4a?dl=0')
+  
+  
+  room3music = loadSound('https://dl.dropboxusercontent.com/s/oy8tfu4e4cxpdry/Room%203.m4a?dl=0')
+  
+  
+  
+
+
+clocksound = loadSound('https://dl.dropboxusercontent.com/s/h3hyhr90tod8hph/21938111.mp3?dl=0')
+
+
+beep = loadSound('https://dl.dropboxusercontent.com/s/s2q8y7xylozfxdi/Sci%20Fi%20Button%20Beep%20SOUND%20Effect.mp3?dl=0')
   
   
   clockticking = loadSound('https://dl.dropboxusercontent.com/s/jfx7a6du3vprh2c/pocket%20watch%20sound%20effect%20clock%20ticking%20fast%20sounds.mp3?dl=0') //Switching canvas sound
@@ -60,8 +79,8 @@ function preload()
   
   screwin = loadSound('https://dl.dropboxusercontent.com/s/1offj9ao6il0wba/Screw%20In%20Sound%20Effect.mp3?dl=0') 
 
-  bombexplosion = loadSound('https://dl.dropboxusercontent.com/s/xzxjalohyvk4jic/Bomb%20Exploding%20Sound%20Effect.mp3?dl=0') */
-  
+  bombexplosion = loadSound('https://dl.dropboxusercontent.com/s/xzxjalohyvk4jic/Bomb%20Exploding%20Sound%20Effect.mp3?dl=0') 
+
   
 
   Startscreen = loadImage('https://dl.dropbox.com/s/51erxr5uqzpj84k/z1.jpg?dl=0');
@@ -159,7 +178,7 @@ function setup()
   
   //Default
   createCanvas(830,600);
-  canvas = 5;
+  canvas = 1;
   lock = false;
  
 
@@ -337,6 +356,55 @@ function draw()
     image(bomb, 107,533,54,44)
 
   }
+  
+  if(canvas == 1)
+  {
+  if (intro.isPlaying() == false)
+  {
+    intro.play() 
+    intro.loop()
+
+    intro.setVolume(0.25)
+  }
+  }
+  else 
+  {
+    intro.stop()
+  }
+
+  
+
+  if(canvas == 2 || canvas == 2.1)
+  {  
+    if (room1music.isPlaying() == false)
+    {
+      room1music.play() 
+      room1music.loop()
+
+      room1music.setVolume(0.15)
+    }
+  }
+  else 
+  {
+    room1music.stop()
+  }
+
+
+
+  if (canvas == 3 || canvas ==3.1 || canvas == 3.2)
+  {
+    if (room2music.isPlaying() == false)
+    {
+      room2music.play() 
+      room2music.loop()
+
+      room2music.setVolume(0.15)
+    }
+  }
+  else 
+  {
+    room2music.stop()
+  }
 
   
 
@@ -348,6 +416,9 @@ function canvas1() // Startscreen
 {
   image(Startscreen,0,0,830,600);
 
+  
+ 
+  
   fill(255,0,0);
   rect(330,370,120,70);
   fill(0,0,0);
@@ -371,11 +442,9 @@ function canvas1() // Startscreen
     }
   }
   
-  if (stateofbomb == 1)
-  {
-    image(bomb, 107,533,54,44)
 
-  }
+  
+  
 }
 
 function canvas2() // Lab
@@ -393,6 +462,11 @@ function canvas2() // Lab
   
   image(Dummykeypad,220,300,30,40);
   
+
+  
+  
+
+
 
 
   itemGrid();
@@ -515,6 +589,8 @@ function canvas2_1() // Password Codes
       textSize(50);
       text("1",570,120);
       a = true;
+      beep.play()
+      
     }
   }
   //4
@@ -527,6 +603,7 @@ function canvas2_1() // Password Codes
       textSize(70);
       text("ERROR!",250,70);
       canvas = 2;
+      beep.play()
     }
   }
   //7
@@ -538,6 +615,7 @@ function canvas2_1() // Password Codes
       rect(255,285,90,90);
       textSize(50);
       text("7",570+50,120);
+      beep.play()
       if (a == true && b == true)
       {
         c = true;
@@ -554,6 +632,7 @@ function canvas2_1() // Password Codes
       textSize(70);
       text("ERROR!",250,70);
       canvas = 2;
+      beep.play()
     }
   }
   //2
@@ -566,6 +645,7 @@ function canvas2_1() // Password Codes
       textSize(70);
       text("ERROR!",250,70);
       canvas = 2;
+      beep.play()
     }
   }
   //5
@@ -578,6 +658,7 @@ function canvas2_1() // Password Codes
       textSize(70);
       text("ERROR!",250,70);
       canvas = 2;
+      beep.play()
     }
   }
   //8
@@ -589,6 +670,7 @@ function canvas2_1() // Password Codes
       rect(355,285,90,90);
       textSize(50);
       text("8",570+25,120);
+      beep.play()
       if (a == true)
       {
         b = true;
@@ -605,6 +687,7 @@ function canvas2_1() // Password Codes
       textSize(70);
       text("ERROR!",250,70);
       canvas = 2;
+      beep.play()
     }
   }
   //3
@@ -620,6 +703,7 @@ function canvas2_1() // Password Codes
       {
         d = true;
       }
+      beep.play()
     }
   }
   //6
@@ -632,6 +716,7 @@ function canvas2_1() // Password Codes
       textSize(70);
       text("ERROR!",250,70);
       canvas = 2;
+      beep.play()
     }
   }
   //9
@@ -644,6 +729,7 @@ function canvas2_1() // Password Codes
       textSize(70);
       text("ERROR!",250,70);
       canvas = 2;
+      beep.play()
     }
   }
   //#
@@ -656,6 +742,7 @@ function canvas2_1() // Password Codes
       textSize(70);
       text("ERROR!",250,70);
       canvas = 2;
+      beep.play()
     }
   }
   if (d == true)
@@ -666,6 +753,8 @@ function canvas2_1() // Password Codes
 
 function canvas3() // Airplane
 {
+  
+  
   timer = 1
   cursor(ARROW);
   image(cargoplane,0,0,830,600)
