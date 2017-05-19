@@ -1,4 +1,4 @@
-//May 12
+//May 17th
 var stateofBeaker
 var stateofClipboard
 var stateofairvent
@@ -82,6 +82,7 @@ beep = loadSound('https://dl.dropboxusercontent.com/s/s2q8y7xylozfxdi/Sci%20Fi%2
   bombexplosion = loadSound('https://dl.dropboxusercontent.com/s/xzxjalohyvk4jic/Bomb%20Exploding%20Sound%20Effect.mp3?dl=0') 
 
   
+  
 
   Startscreen = loadImage('https://dl.dropbox.com/s/51erxr5uqzpj84k/z1.jpg?dl=0');
   //Start Screen
@@ -89,7 +90,7 @@ beep = loadSound('https://dl.dropboxusercontent.com/s/s2q8y7xylozfxdi/Sci%20Fi%2
 
   
   //First Puzzle
-  Labratory  = loadImage('https://dl.dropbox.com/s/lc41ud2kda6ppje/01_30_14brblablg.jpg?dl=0'); //Background for first puzzle
+  Labratory  = loadImage('https://dl.dropbox.com/s/48dzcmzyhpmb9bl/Room%201%20a%20shot.png?dl=0'); //Background for first puzzle
   
   Clock = loadImage('https://dl.dropbox.com/s/ry0s5a13d1xb232/maxresdefault.jpg?dl=0')
   
@@ -117,7 +118,7 @@ beep = loadSound('https://dl.dropboxusercontent.com/s/s2q8y7xylozfxdi/Sci%20Fi%2
   
   //Second Puzzle
   
- cargoplane = loadImage('https://dl.dropbox.com/s/97j9l986zpjierz/Movie-Cargo-Plane-Interior.jpg?dl=0')
+  cargoplane = loadImage('https://dl.dropbox.com/s/pcitatzxh8mtpvu/Room%203%20a.png?dl=0')
   
  openhatch = loadImage('https://dl.dropbox.com/s/so3rb2b8zt09j16/Opened%20hatch.png?dl=0')
  
@@ -146,7 +147,7 @@ beep = loadSound('https://dl.dropboxusercontent.com/s/s2q8y7xylozfxdi/Sci%20Fi%2
 
  //lab
  
- beachhouse = loadImage('https://dl.dropbox.com/s/b77jcwt0jat6hhy/Beach-House-Interior-And-Exterior-Design-Ideas-To-Inspire-You-1-1.jpg?dl=0')
+ beachhouse = loadImage('https://dl.dropbox.com/s/a01mn6vjroinfl0/Room%202%20a.png?dl=0')
  
  //hourhand
  
@@ -186,9 +187,9 @@ function setup()
   
   //Canvas 2
   moveBeakerX = 543;
-  moveBeakerY = 350;
+  moveBeakerY = 150;
   endBeakerX = 543;
-  endBeakerY = 300;
+  endBeakerY = 100;
   stateofBeaker = 1;
 
   
@@ -284,9 +285,8 @@ function draw()
   }
   
   fill(0,0,0)
-  text(time,10,10);
-  text(mouseX,50,10);
-  text(mouseY,50,30);
+  
+
 
   
   
@@ -357,11 +357,13 @@ function draw()
 
   }
   
-  if(canvas == 1)
+  
+  
+  if(canvas == 1) 
   {
   if (intro.isPlaying() == false)
   {
-    intro.play() 
+    intro.play()  
     intro.loop()
 
     intro.setVolume(0.25)
@@ -408,7 +410,6 @@ function draw()
 
   
 
-
   
 }
 
@@ -450,17 +451,17 @@ function canvas1() // Startscreen
 function canvas2() // Lab
 {
   image(Labratory,0,0,830,600);
-  image(Testtubes, 160,380,180,150);
-  image(Clock,350,50,150,100);
+  image(Testtubes, 50,380,180,150);
+  image(Clock,270,200,130,80);
   image(blackscreen,720,270,80,60)   
   image(RedButton,750,420, 50,50)
   
   
   C1 = sqrt((mouseX - 775)*(mouseX - 775) + (mouseY - 445) * (mouseY - 445)); // button
   
-  image(Number1,550,350,30,40)
+  image(Number1,550,150,30,40)
   
-  image(Dummykeypad,220,300,30,40);
+  image(Dummykeypad,230,200,30,40);
   
 
   
@@ -511,7 +512,7 @@ function canvas2() // Lab
   //Time
 
   
-  if (mouseX > 350 && mouseX < 500 && mouseY > 50 && mouseY < 150)
+  if (mouseX > 270 && mouseX < 400 && mouseY > 200 && mouseY < 280)
   {
     cursor(HAND);
     if (mouseIsPressed == true)
@@ -519,6 +520,7 @@ function canvas2() // Lab
       clocksound.play()
     }
   }
+
 
   
   
@@ -533,7 +535,7 @@ function canvas2() // Lab
   
   
   //Time
-  if (mouseX > 543 && mouseX < 583 && mouseY > 350 && mouseY < 390)
+  if (mouseX > 543 && mouseX < 583 && mouseY > 150 && mouseY < 190)
   {
     cursor(HAND);
     if (mouseIsPressed == true)
@@ -549,18 +551,18 @@ function canvas2() // Lab
   
   //Clipboard
   
-  if (mouseX > 450 && mouseX < 500 && mouseY > 300 && mouseY < 380)
+  if (mouseX > 450 && mouseX < 500 && mouseY > 200 && mouseY < 280)
   {
     image(Clipboard, 350,120,250,350);
   }
   else
   {
-    image(Clipboard, 450,300,50,80);
+    image(Clipboard, 450,200,50,80);
   }
 
   //Dummy Keycode
 
-  if (mouseX > 220 && mouseX < 250 && mouseY > 300 && mouseY < 340)
+  if (mouseX > 230 && mouseX < 260 && mouseY > 200 && mouseY < 240)
   {
     cursor(HAND);
     if (mouseIsPressed == true)
@@ -568,7 +570,6 @@ function canvas2() // Lab
       canvas = 2.1
     }
   }
-
 
   
   
@@ -762,7 +763,7 @@ function canvas3() // Airplane
   
   if (cargohatch == 0) //Closed hatch
   {
-    image(closedhatch,60,260,130,130) 
+    image(closedhatch,650,260,130,130) 
     
   }
   
@@ -771,7 +772,7 @@ function canvas3() // Airplane
     timer = 0
     image(openhatch,60,260,130,130) 
     
-    if(mouseX > 60 && mouseX < 190 && mouseY > 260 && mouseY < 390 && mouseIsPressed == true)
+    if(mouseX > 650 && mouseX < 780 && mouseY > 260 && mouseY < 390 && mouseIsPressed == true)
     {
       canvas = 5
     }
@@ -796,7 +797,7 @@ function canvas3() // Airplane
   {
   noCursor();
   image(bomb,mouseX-25,mouseY-25,50,50);
-    if(mouseX > 60 && mouseX < 190 && mouseY > 260 && mouseY < 390)
+    if(mouseX > 650 && mouseX < 780 && mouseY > 260 && mouseY < 390)
     {
       cursor(HAND);
       if (mouseIsPressed == true)
