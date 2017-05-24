@@ -1901,9 +1901,9 @@ function canvas5() // Outside
     if(hourhandorientation==0)
     {
       image(hourhandnorth, 495,210,55,130)
-      image(rightarrow,530,240,100,50)
+      image(rightarrow,530,150,100,50)
       
-      if (mouseX > 530 && mouseX < 630 && mouseY > 240 && mouseY < 290)
+      if (mouseX > 530 && mouseX < 630 && mouseY > 150 && mouseY < 200)
         {
           cursor(HAND);
           if (mouseIsPressed == true)
@@ -1912,8 +1912,8 @@ function canvas5() // Outside
           }
         }
       
-      image(leftarrow,420,240,100,50)
-      if (mouseX > 420 && mouseX < 520 && mouseY > 240 && mouseY < 290)
+      image(leftarrow,420,150,100,50)
+      if (mouseX > 420 && mouseX < 520 && mouseY > 150 && mouseY < 200)
       {
         cursor(HAND);
         if (mouseIsPressed == true)
@@ -1929,9 +1929,9 @@ function canvas5() // Outside
       image(hourhandeast, 510,295,130,55)
       
       
-      image(downarrow,540,330,55,100)
+      image(downarrow,630,330,55,100)
       
-      if (mouseX > 540 && mouseX < 595 && mouseY > 330 && mouseY < 430)
+      if (mouseX > 630 && mouseX < 685 && mouseY > 330 && mouseY < 430)
       {
         cursor(HAND);
         if (mouseIsPressed == true)
@@ -1940,9 +1940,9 @@ function canvas5() // Outside
         }
       }
       
-      image(uparrow,540,220,55,100)
+      image(uparrow,630,220,55,100)
 
-      if (mouseX > 540 && mouseX < 595 && mouseY > 220 && mouseY < 320)
+      if (mouseX > 630 && mouseX < 685 && mouseY > 220 && mouseY < 320)
       {
         cursor(HAND);
         if (mouseIsPressed == true)
@@ -1961,9 +1961,9 @@ function canvas5() // Outside
       
       
       
-      image(downarrow,420,330,55,100)
+      image(downarrow,330,330,55,100)
 
-      if (mouseX > 420 && mouseX < 475 && mouseY > 330 && mouseY < 430)
+      if (mouseX > 330 && mouseX < 385 && mouseY > 330 && mouseY < 430)
       {
         cursor(HAND);
         if (mouseIsPressed == true)
@@ -1972,9 +1972,9 @@ function canvas5() // Outside
         }
       }
 
-      image(uparrow,420,220,55,100)
+      image(uparrow,330,220,55,100)
 
-      if (mouseX > 420 && mouseX < 475 && mouseY > 220 && mouseY < 320)
+      if (mouseX > 330 && mouseX < 385 && mouseY > 220 && mouseY < 320)
       {
         cursor(HAND);
         if (mouseIsPressed == true)
