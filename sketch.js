@@ -42,12 +42,22 @@ var py = 450;
 
 //Puzzle 3
 
+<<<<<<< HEAD
 var hourhandorientation // Needed to indicate the direction the hour clock hand is pointed towards.
+=======
+var hourhandOrientation; // Needed to indicate the direction the hour clock hand is pointed towards.
+>>>>>>> origin/master
 
 
 var searchLight//In order to have the "searchlight" function to find the number to work
 
 var stateofflashlight//Needed for movement of beaker in puzzle 1 to help change its "state" from being stationary to being able to be moved with the player's cursor
+<<<<<<< HEAD
+=======
+
+
+var hourhandorientation//
+>>>>>>> origin/master
 
 
 var clockmove//Timer for the ending visuals
