@@ -1,9 +1,21 @@
-//May 25th
+/*
+Quick overview of the canvases
+
+Canvas 1 - Start screen
+Canvas 2-  Laboratory
+Canvas 3.1 - Airplane
+Canvas 3.2 - Train car
+Canvas 3.3 - Barn (canvas 3.1-3.3 loops on a 10 second timer for each canvas )
+Canvas 4 - Beachhouse
+Canvas 5 - End screen
+
+*/
 
 
 //This is where all the variables are named and created as global variables so that they are recognized as variables.
 
-//Universal
+//Universal variables 
+
 var canvas; //Grants the ability to create canvases that can act as different "stages" for the escape room
 
 
@@ -45,22 +57,12 @@ var py = 450;
 
 //Puzzle 3
 
-<<<<<<< HEAD
 var hourhandorientation // Needed to indicate the direction the hour clock hand is pointed towards.
-=======
-var hourhandOrientation; // Needed to indicate the direction the hour clock hand is pointed towards.
->>>>>>> origin/master
 
 
 var searchLight//In order to have the "searchlight" function to find the number to work
 
 var stateofflashlight//Needed for movement of beaker in puzzle 1 to help change its "state" from being stationary to being able to be moved with the player's cursor
-<<<<<<< HEAD
-=======
-
-
-var hourhandorientation//
->>>>>>> origin/master
 
 
 var clockmove//Timer for the ending visuals
@@ -753,22 +755,22 @@ function canvas2() // Lab: Puzzle 1
 
 
 
-//
-  // if state of beaker is 1 then the beaker is stationary
+//Moves the beaker from its default state to upwards revealing the one, and can return to its default state if clicked upon again
+  
+  // if state of beaker is 1 then the beaker is stationary and covers the number one
   if (stateofBeaker == 1)
   {
     // draw box at default location
     image(Beaker,moveBeakerX,moveBeakerY,40,60)
   }
-  // if state of box is 2 then the box is moving from left to right
+  // if the beaker is clicked upon, it moves upwards
   else if (stateofBeaker == 2)
   {
-    // draw box
+    // draws the beaker as it moves
     image(Beaker, moveBeakerX,moveBeakerY,40,60)
-    // move box to the right by increasing the x value of it
+    // The beakers moves upward by increasing the y value for its drawing 
 
-    // if the x value is beyond a domain change the state of the box
-    // to stationary
+    // As the beaker moves upwards, once the y value reaches a certain threshold, it will draw itself as stationary and will stop moving upwards. 
     if (moveBeakerY > endBeakerY)
     {
       moveBeakerY = moveBeakerY + 2;
@@ -778,10 +780,10 @@ function canvas2() // Lab: Puzzle 1
       stateofBeaker = 3;
     }
   }
-  else if (stateofBeaker == 3)
+  else if (stateofBeaker == 3) // The beaker is at its destination location 
   {
-    // draw box at destination location
-    image(Beaker,endBeakerX,endBeakerY,40,60);
+
+    image(Beaker,endBeakerX,endBeakerY,40,60); //End position
     
     if (mouseX > endBeakerX && mouseX < endBeakerX + 40 && mouseY > endBeakerY && mouseY < endBeakerY + 60)
     {
@@ -790,15 +792,15 @@ function canvas2() // Lab: Puzzle 1
       {
      stateofBeaker = 1
       }
-    }
+    } //If the player clicks upon the beaker when it reaches its end destination, it will return to its default state and go back down. 
 
     
     
   
   }
 
-
-  //Time
+  
+  //If the player clicks upon the clock, a voice will read "The time is now 8 PM". The use of the number eight is clue for the keypad combo 
 
 
   if(mouseX > 270 && mouseX < 400 && mouseY > 200 && mouseY < 280)
@@ -816,7 +818,7 @@ function canvas2() // Lab: Puzzle 1
 
 
 
-
+//If the player's cursor is on the red button, within the circle, and they click on it, a number three will be displayed upon the computer screen. 
 
   if (C1 < 25)
   {
@@ -829,7 +831,7 @@ function canvas2() // Lab: Puzzle 1
   }
 
 
-  //Time
+  //If the player clicks on the beaker in the default state, it will start to move to its end destination above the starting position 
   if (mouseX > moveBeakerX && mouseX < moveBeakerX + 40 && mouseY > moveBeakerY && mouseY < moveBeakerY + 60)
   {
     cursorishand = true
@@ -841,7 +843,7 @@ function canvas2() // Lab: Puzzle 1
 
 
 
-  //Clipboard
+  //Clipboard that has the riddle that will be used in order to find the numbers for the keypad combo and the order for the numbers. If the player hovers their cursor over the clipboard, the clipboard will be expanded and enalrged for ease of visibility and if the player moves their cursor off the clipboard, it will return to its default state. 
 
   if (mouseX > 450 && mouseX < 500 && mouseY > 200 && mouseY < 280)
   {
@@ -853,7 +855,7 @@ function canvas2() // Lab: Puzzle 1
     
   }
 
-  //Dummy Keycode
+  //If the player clicks on the keypad, they will enter the keypad screen and have the chance to enter the correct combination to move on. 
 
   if (mouseX > 230 && mouseX < 260 && mouseY > 200 && mouseY < 240)
   {
@@ -864,8 +866,7 @@ function canvas2() // Lab: Puzzle 1
     }
   }
 
-  // use a single if... else at the end to change the cursor
-  // default to arrow and change to hand otherwise
+//By default, the cursor is an arrow, but if a change happens, in this case hovering a prop, the cursor will change into a hand in order to hint to the players that they have to interact with the object. 
   if (cursorishand == true)
     {
      cursor(HAND) 
@@ -879,7 +880,7 @@ function canvas2() // Lab: Puzzle 1
 
 }
 
-function canvas2_1() // Password Codes
+function canvas2_1() //The nine-digit keypad itself. If the player enters the correct keypad combination, they will move onto the next puzzle. If not, the keypad will boot them back to the first puzzle. 
 {
   cursor(ARROW);
   image(Keypad,250,80,300,400);
@@ -1053,18 +1054,19 @@ function canvas2_1() // Password Codes
   {
     canvas = 3;
   }
-}
+}  //The player must punch in the right code of "1", "8", "7",  and "3" in order to move on. If the player does not input those numbers in that order, the program will boot them back to the first puzzle. If the player does input that combo, they move onto the second puzzle. Whenever the player clicks on a button, a beep sound effect is played. 
 
-function canvas3() // Airplane
+
+function canvas3() // Puzzle 2, Room 1: Airplane 
 {
 
 
-  timer = 1
+  timer = 1// The timer function starts and will start to switch canvases each 10 seconds. 
   cursor(ARROW);
-  image(cargoplane,0,0,830,600)
+  image(cargoplane,0,0,830,600)//Background image
   itemGrid();
 
-  if (cargohatch == 0) //Closed hatch
+  if (cargohatch == 0) //Closed hatch. This is the default state of the cargo hatch, until the player collects the bomb and opens it. 
   {
     image(closedhatch,650,260,130,130) 
 
@@ -1079,7 +1081,7 @@ function canvas3() // Airplane
     {
       canvas = 5
     }
-  }
+  }// Once the player blows up the hatch, the timer stops and the player can click on the hatch to move onto puzzle 3 
 
 
 
@@ -1094,25 +1096,25 @@ function canvas3() // Airplane
       stateofbomb = 2
     }
 
-  }
+  }//Once the player clicks on the bomb in their inventory, the bomb follows their cursor 
 
+  
   if (stateofbomb == 2)
   {
     noCursor();
     image(bomb,mouseX-25,mouseY-25,50,50);
-    if(mouseX > 650 && mouseX < 780 && mouseY > 260 && mouseY < 390)
+    if(mouseX > 650 && mouseX < 780 && mouseY > 260 && mouseY < 390)    
     {
       cursor(HAND);
       if (mouseIsPressed == true)
       {
+        bombexplosion.play()
         stateofbomb = 0
         cargohatch = 1
       }
     }
 
-
-
-  }
+  }//Once the bomb follows the player's cursor, when the player clicks on the cargo hatch with the bomb, the cargo hatch opens and an explosion sound effect is played. 
 
 
 
@@ -1124,15 +1126,15 @@ function canvas3() // Airplane
 
 
 
-function canvas3_1() //Train car
+function canvas3_1() //Puzzle 2, Room 2: Train car. After ten seconds in the first room, the canvas swaps to this. The player has ten seconds to pick up the screwdriver, unscrew all four screws and find the code for the combo lock in the next room. 
 {
   textSize(30);
   cursor(ARROW);
-  image(traincar,0,0,830,520)
+  image(traincar,0,0,830,520)//Background image of a train car based off the movie The Darjeeling Limited 
   itemGrid();
 
 
-  if (stateofairvent==0)
+  if (stateofairvent==0)//Default state of the airvent where it covers the code for the violin case lock. 
   {
     image(airvent, 580,320,200,105)
 
