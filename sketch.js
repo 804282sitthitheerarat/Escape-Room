@@ -1,46 +1,33 @@
-//May 24th
+//This is where all the variables are named and created as global variables so that they are recognized as variables.
 
-var stateofBeaker
-var stateofClipboard
-var stateofairvent
-
-var hourhandOrientation;
-var lockhourhandOrientation;
-
-var minutehandOrientation;
-var lockminutehandOrientation;
-
-var hourhandX;
-var hourhandY;
-
-var minutehandX2;
-var minutehandY2;
-
-var hourhandDistance;
-var minutehandDistance;
-
-var hourhandlock;
-var minutehandlock;
-
-
-var searchLight
-
-var stateofflashlight
+//Universal
+var canvas; //Grants the ability to create canvases that can act as different "stages" for the escape room
 
 
 
-var canvas;
+var lock; // lock  for canvas change 
 
-// lock variables for canvas 2 lock combination
-var lock4;
+
+
+//Puzzle 1: Lab
+var stateofBeaker //Needed for movement of beaker in puzzle 1 to help change its "state"
+var stateofClipboard//Needed for movement of the clipboard in puzzle 1 to help change its "state" by enlarging it
+
+
+//Puzzle 2: Train
+var stateofairvent//Needed for change in state of the airvent in puzzle 2 to change in between its attached and deattached state
+
+//Puzzle 2: Barn
+
+
+var lock4;// lock variables for the lock combination inside the barn in puzzle. This helps to check if the player selected the right number combination for each digit or not.
 var lock3; 
 var lock2;
 var lock1;
 
-// lock  for canvas change 
-var lock; 
 
-// variables for the combination changing in canvas 2 (moving the numbers from 1 to 9)
+
+// variables for the combination changing in puzzle 2, allowing the players to chagne the numbers and hopefully find the correct lock combo
 var lockcombo;
 var lockcombo2; 
 var lockcombo3;
@@ -51,13 +38,19 @@ var px1 = 160;
 var px2 = 183; 
 var px3 = 206; 
 var px4 = 229; 
-
-
 var py = 450;
 
-var hourhandorientation
+//Puzzle 3
 
-var clockmove
+var hourhandorientation // Needed to indicate the direction the hour clock hand is pointed towards.
+
+
+var searchLight//In order to have the "searchlight" function to find the number to work
+
+var stateofflashlight//Needed for movement of beaker in puzzle 1 to help change its "state" from being stationary to being able to be moved with the player's cursor
+
+
+var clockmove//Timer for the ending visuals
 
 
 function preload()
@@ -65,7 +58,7 @@ function preload()
 
 
 
-  //This is all the music Will Ha from the music tech side of things has provided for me to implement as background music for each of the puzzles.
+  //This is all the music Will Ha from the music tech side of things has provided for me to implement as background music for each of the puzzles. They have all been named correspondingly to their respective areas and puzzles under the name of the variables associated with them 
   intro = loadSound('https://dl.dropboxusercontent.com/s/o11p87r4pzcvb0b/Introduction.m4a?dl=0')
 
   room1music = loadSound('https://dl.dropboxusercontent.com/s/83o0z304ngife0r/Room%20No.1.m4a?dl=0')
@@ -80,29 +73,35 @@ function preload()
 
 
 
+  
+//Puzzle 1 Sound effects   
 
-clocksound = loadSound('https://dl.dropboxusercontent.com/s/h3hyhr90tod8hph/21938111.mp3?dl=0')
-
-
-beep = loadSound('https://dl.dropboxusercontent.com/s/s2q8y7xylozfxdi/Sci%20Fi%20Button%20Beep%20SOUND%20Effect.mp3?dl=0')
-
-
-  clockticking = loadSound('https://dl.dropboxusercontent.com/s/jfx7a6du3vprh2c/pocket%20watch%20sound%20effect%20clock%20ticking%20fast%20sounds.mp3?dl=0') //Switching canvas sound
+clocksound = loadSound('https://dl.dropboxusercontent.com/s/h3hyhr90tod8hph/21938111.mp3?dl=0') //A Short track that says "The time is now 8 pm."
 
 
-  screwin = loadSound('https://dl.dropboxusercontent.com/s/1offj9ao6il0wba/Screw%20In%20Sound%20Effect.mp3?dl=0') 
-
-  bombexplosion = loadSound('https://dl.dropboxusercontent.com/s/xzxjalohyvk4jic/Bomb%20Exploding%20Sound%20Effect.mp3?dl=0') 
+beep = loadSound('https://dl.dropboxusercontent.com/s/s2q8y7xylozfxdi/Sci%20Fi%20Button%20Beep%20SOUND%20Effect.mp3?dl=0')//Beep whenever a key is pressed for the keypad that moves from the player from the first room to the seocnd room. 
 
 
+  //Puzzle 2 sound effects
+  
+  clockticking = loadSound('https://dl.dropboxusercontent.com/s/jfx7a6du3vprh2c/pocket%20watch%20sound%20effect%20clock%20ticking%20fast%20sounds.mp3?dl=0') //Switching canvas sound with the automatically rotating canvases 
 
 
+  screwin = loadSound('https://dl.dropboxusercontent.com/s/1offj9ao6il0wba/Screw%20In%20Sound%20Effect.mp3?dl=0') //Screw in sound for a screwdriver 
 
-
+  bombexplosion = loadSound('https://dl.dropboxusercontent.com/s/xzxjalohyvk4jic/Bomb%20Exploding%20Sound%20Effect.mp3?dl=0') //A bomb explosion
 
 
 
 
+
+
+
+
+
+//Images
+  
+  
 
   Startscreen = loadImage('https://dl.dropbox.com/s/51erxr5uqzpj84k/z1.jpg?dl=0');
   //Start Screen
@@ -112,66 +111,68 @@ beep = loadSound('https://dl.dropboxusercontent.com/s/s2q8y7xylozfxdi/Sci%20Fi%2
   //First Puzzle
   Labratory  = loadImage('https://dl.dropbox.com/s/48dzcmzyhpmb9bl/Room%201%20a%20shot.png?dl=0'); //Background for first puzzle
 
-  Clock = loadImage('https://dl.dropbox.com/s/ry0s5a13d1xb232/maxresdefault.jpg?dl=0')
+  Clock = loadImage('https://dl.dropbox.com/s/ry0s5a13d1xb232/maxresdefault.jpg?dl=0')//Analog clock that can be clicked on
 
 
 
-  Keypad = loadImage('https://dl.dropbox.com/s/cj8xxsxgo3hsfi0/Phone_keypad_layout%2C_grayscale.png?dl=0');
+  Keypad = loadImage('https://dl.dropbox.com/s/cj8xxsxgo3hsfi0/Phone_keypad_layout%2C_grayscale.png?dl=0'); //The picture of the keypad that the player can click on and interact with
 
-  Beaker = loadImage('https://dl.dropbox.com/s/20zq3j3ayqtsq9u/Beaker.png?dl=0');
+  Beaker = loadImage('https://dl.dropbox.com/s/20zq3j3ayqtsq9u/Beaker.png?dl=0');//A picture of a beaker that can be moved
 
-  Number1 = loadImage('https://dl.dropbox.com/s/p1a1ejvsnkbgjah/1-Number-PNG.png?dl=0');
+  Number1 = loadImage('https://dl.dropbox.com/s/p1a1ejvsnkbgjah/1-Number-PNG.png?dl=0');//A number one that is required for the players to figure is part of the code for the keypad to move on
 
-  Testtubes = loadImage('https://dl.dropbox.com/s/ur7pe63k4wjn05r/testubes.png?dl=0');
+  Testtubes = loadImage('https://dl.dropbox.com/s/ur7pe63k4wjn05r/testubes.png?dl=0');//A rack of seven test tubes with the amount of test tubes, in this case seven, being one of the digits for the escape combo for the key pad
 
-  Clipboard = loadImage('https://dl.dropbox.com/s/ck6p4pl419j2n1j/CLIPBOARD.png?dl=0')
+  Clipboard = loadImage('https://dl.dropbox.com/s/ck6p4pl419j2n1j/CLIPBOARD.png?dl=0')//A clipboard that can be hovered over to enlarged to give the players a riddle that they must use in order to figure how to find the numbers for the combination key pad lock for them to move on and what order to have the numbers in
 
-  blackscreen = loadImage('https://dl.dropbox.com/s/1unlz6qygp43waw/blackscreen.png?dl=0')
+  blackscreen = loadImage('https://dl.dropbox.com/s/1unlz6qygp43waw/blackscreen.png?dl=0')//A black screen that will display a clue if a corresponding button is clicked upon
 
-  RedButton = loadImage('https://dl.dropbox.com/s/ntdhc96qwwzvv9q/generic-button-1357003_960_720.png?dl=0')
+  RedButton = loadImage('https://dl.dropbox.com/s/ntdhc96qwwzvv9q/generic-button-1357003_960_720.png?dl=0')// A butoon that is used to display a number on the black screen to show one of the key pad combos
 
-  Number3 = loadImage('https://dl.dropbox.com/s/urzxwg3h8juorbk/85263ce4-f562-486f-9728-4b4571a11ed8_1.45432d5c9761171e2d67b0496c8671dd.png?dl=0')
-
-
-  Dummykeypad = loadImage('https://dl.dropbox.com/s/j4go5m6p0ltlo4v/DUMMY%20KEY.png?dl=0')
+  Number3 = loadImage('https://dl.dropbox.com/s/urzxwg3h8juorbk/85263ce4-f562-486f-9728-4b4571a11ed8_1.45432d5c9761171e2d67b0496c8671dd.png?dl=0')// One of the lock comb numbers that is displayed on the black screen when the red button is clicked upon.
 
 
-  //Second Puzzle
+  Dummykeypad = loadImage('https://dl.dropbox.com/s/j4go5m6p0ltlo4v/DUMMY%20KEY.png?dl=0')//An image that players can click to go into the keypad screen in order to input the correct combination to move on 
 
-  cargoplane = loadImage('https://dl.dropbox.com/s/pcitatzxh8mtpvu/Room%203%20a.png?dl=0')
 
-  openhatch = loadImage('https://dl.dropbox.com/s/so3rb2b8zt09j16/Opened%20hatch.png?dl=0')
+  //Second Puzzle: Airplane
 
-  closedhatch = loadImage('https://dl.dropbox.com/s/xtn5fkvvi1894xe/closed%20hatch.png?dl=0')
+  cargoplane = loadImage('https://dl.dropbox.com/s/pcitatzxh8mtpvu/Room%203%20a.png?dl=0')//The background image of the second puzzle's first room
+
+  openhatch = loadImage('https://dl.dropbox.com/s/so3rb2b8zt09j16/Opened%20hatch.png?dl=0')//This is an image of an open hatch that if a player clicks on it, it will move them to puzzle 3
+
+  closedhatch = loadImage('https://dl.dropbox.com/s/xtn5fkvvi1894xe/closed%20hatch.png?dl=0')//In order for this closed air hatch to be opened, the player must find a bomb to open it
 
 
   //Train
-  traincar = loadImage(' https://dl.dropbox.com/s/36bkza99dy9nbpg/traincar.jpg?dl=0')
+  traincar = loadImage(' https://dl.dropbox.com/s/36bkza99dy9nbpg/traincar.jpg?dl=0')//Background for puzzle 2, room 2
   
  
-  screwdriver = loadImage('https://dl.dropbox.com/s/dev5xn3sfnnehfl/screwdriver_PNG9512.png?dl=0')
-  airvent = loadImage('https://dl.dropbox.com/s/rhardb91fpnrflg/airvent.png?dl=0')
-  codeairvent = loadImage('https://dl.dropbox.com/s/amsyrs2wt1ycbjw/code.png?dl=0')
+  screwdriver = loadImage('https://dl.dropbox.com/s/dev5xn3sfnnehfl/screwdriver_PNG9512.png?dl=0')//Screwdriver that the player must pick up and unscrew the airvent screws with 
+  
+  airvent = loadImage('https://dl.dropbox.com/s/rhardb91fpnrflg/airvent.png?dl=0')//An airvent that if a player unscrews the screws off, it will reveal the code behind it
+  
+  codeairvent = loadImage('https://dl.dropbox.com/s/amsyrs2wt1ycbjw/code.png?dl=0')//The code for the next room once the airvent is removed
 
 
   //Barn
 
-  barn = loadImage('https://dl.dropbox.com/s/kdp75n2pjejghm8/Webp.net-resizeimage.jpg?dl=0')
+  barn = loadImage('https://dl.dropbox.com/s/kdp75n2pjejghm8/Webp.net-resizeimage.jpg?dl=0')//Background for puzzle 2, room 3    
 
-  violin = loadImage('https://dl.dropbox.com/s/n2wgx3oct9ftdc1/violin.png?dl=0')
+  violin = loadImage('https://dl.dropbox.com/s/n2wgx3oct9ftdc1/violin.png?dl=0')//Locked violin case that requires tbe code from behind airvent to open. Will have the bomb inside. I chose to use a violin case as it was a part of the movie "Predestination", a movie I drew inspiration from when designing this project.
 
-  openviolin = loadImage('https://dl.dropbox.com/s/0hggf60oecdec0p/opencase.png?dl=0')
+  openviolin = loadImage('https://dl.dropbox.com/s/0hggf60oecdec0p/opencase.png?dl=0')//An open violin case that will be opened once the right code is inputted. Will have the bomb be clickable and will be added to the player's inventory
 
   bomb = 
-    loadImage('https://dl.dropbox.com/s/fy6oij5q5q11trk/StickyBomb-GTAV.png?dl=0')
+    loadImage('https://dl.dropbox.com/s/fy6oij5q5q11trk/StickyBomb-GTAV.png?dl=0')//A bomb that be retrieved from the open violin case and used to open the escape hatch once the canvas is swapped to the first room of puzzle 2
 
 
 
-  //lab
+  //Puzzle 3
 
-  beachhouse = loadImage('https://dl.dropbox.com/s/a01mn6vjroinfl0/Room%202%20a.png?dl=0')
+  beachhouse = loadImage('https://dl.dropbox.com/s/a01mn6vjroinfl0/Room%202%20a.png?dl=0')//The background for puzzle 3
 
-  //hourhand
+  //Four different pictures of an hour hand in four different positions: up,down,left and right, with them corresponding to the hours of 12, 6, 9, and 3 respectively. 
 
   hourhandwest = loadImage('https://dl.dropbox.com/s/nu9io89axto886i/hour%20hand%20west.png?dl=0')
 
@@ -182,26 +183,18 @@ beep = loadSound('https://dl.dropboxusercontent.com/s/s2q8y7xylozfxdi/Sci%20Fi%2
   hourhandnorth = loadImage('https://dl.dropbox.com/s/a4m7okrvmf90rxg/hour%20hand%20north.png?dl=0')
 
 
-  //minutehand
-
-  minutehandnorth = loadImage('https://dl.dropbox.com/s/zf1phag4sqg6wf4/minute%20hand%20north.png?dl=0')
-
-  minutehandsouth = loadImage('https://dl.dropbox.com/s/farox01c5lx0b01/minute%20hand%20south.png?dl=0')
-
-  minutehandeast = loadImage('https://dl.dropbox.com/s/0yvq2cn67id1muz/minute%20hand%20east.png?dl=0')
-
-  minutehandwest = loadImage('https://dl.dropbox.com/s/1jh4r1u8kgl1yc4/minute%20hand%20west.png?dl=0')
+  
+  searchLight = loadImage('https://dl.dropboxusercontent.com/s/ft355wfbdhajopd/searchlight.png'); //A flashlight-esque function that the players must use in order to locate a number to set the clock to. The player's vision is limited to a small circle with the outer parts of the circle being dark, in order to simulate having a flashlight in a dark room.
+  
+  flashlight = loadImage('https://dl.dropboxusercontent.com/s/55ycjcs5n1wkjji/asdfadsfadsfasd.png?dl=0')//A flashlight that players can use in order to search for clues.
+  
+  six = loadImage('https://dl.dropboxusercontent.com/s/b6w3e8s4j509aml/six.png?dl=0')// The number six
+  
+  analogclock = loadImage('https://dl.dropboxusercontent.com/s/wj0p84nurtuisf1/2000px-Modern_clock_chris_kemps_01.svg.png?dl=0')//An analog clock that players must use to set the hour hand correctly in order to stop time traveling.
   
   
-  searchLight = loadImage('https://dl.dropboxusercontent.com/s/ft355wfbdhajopd/searchlight.png');
   
-  flashlight = loadImage('https://dl.dropboxusercontent.com/s/55ycjcs5n1wkjji/asdfadsfadsfasd.png?dl=0')
-  
-  six = loadImage('https://dl.dropboxusercontent.com/s/b6w3e8s4j509aml/six.png?dl=0')
-  
-  analogclock = loadImage('https://dl.dropboxusercontent.com/s/wj0p84nurtuisf1/2000px-Modern_clock_chris_kemps_01.svg.png?dl=0')
-  
-  
+  //Arrows that the players must use to set the hour hand in the correct position
   uparrow = loadImage('https://dl.dropboxusercontent.com/s/1ecu9f6ijar608i/uparrow.png?dl=0')
   
   downarrow = loadImage('https://dl.dropboxusercontent.com/s/2h03dstyt087c5i/downarrow.png?dl=0')
@@ -211,17 +204,18 @@ beep = loadSound('https://dl.dropboxusercontent.com/s/s2q8y7xylozfxdi/Sci%20Fi%2
   leftarrow = loadImage('https://dl.dropboxusercontent.com/s/jxzecrq1noc69ty/rightarrow.png?dl=0')
   
   
-  
+  //End screen: Congratulates the players for beating the game
   endscreen = loadImage('https://dl.dropboxusercontent.com/s/afpjmnx2vtlzyq9/end%20screen.jpg?dl=0')
 
 }
 
-function setup()
+function setup()  //This is to start the important functions once the program is loaded or refreshed. It sets up what the variables are equal to and is an integral part of setting up and starting the program
 {
 
 
 
-
+//The default states of variables that exist in the puzzle. They will be changed over time as the players interacts more and more with the rooms and as time goes on as the game itself changes some varaibles according to time on a timer as well. 
+  
   hourhandorientation = 0;
   minutehandorientation = 0;
   hourhandX = 100;
@@ -239,21 +233,24 @@ function setup()
 
   //Default
   createCanvas(830,600);
-  canvas = 1;
-  lock = false;
+  //Creates a canvas that is 830 pixels wide and 1500 pixels long
+
+  canvas = 1;//Sets the canvas and what canvas it starts on and is on, which is one in this case. Whatever this value is, the program will swap to the canvas that corresponds to the assigned value that it is changed to in the program, due to a function that is written further down that helps the change.  As the player progresses throughout the rooms, the canvas will be swapped by functions that overide this value and changes it, effectively swapping canvases and allowing more to be done throughtout the program. It allows different perspectives and close ups on props and allows the player to progress from room to room.
+  
+  lock = false;// Helps to keep the canvas to be locked onto the selected canvas until the canvas changes. 
 
 
 
 
-  //Canvas 2
+  //Canvas 2. The default positions for the beakers
   moveBeakerX = 543;
-  moveBeakerY = 150;
+  moveBeakerY = 140;
   endBeakerX = 543;
   endBeakerY = 100;
   stateofBeaker = 1;
 
 
-  //passwords
+  //Default state for the passwords before the correct input is placed 
   a = false;
   b = false;
   c = false;
@@ -262,66 +259,87 @@ function setup()
 
 
 
-  //Canvas 3
+  //Canvas 3. Puzzle 2.
   frameRate(30);
 
-  timer = 0
+  timer = 0 //Timer for switching canvases. Every second, the program refreshed 30 frames a second. With the timer, I have set it so that every 10 seconds, as 300 frames pass, the canvases swap. This is how I created a timer within this program, in order to fit in with the theme of time traveling in the story.
 
   time = 0
 
+  //Default states of props in puzzle 2 that will be changed as the escape room progresses
   cargohatch = 0
 
+  
+  //Airvent
   stateofairvent = 0
-
+//Screwdriver
   stateofscrewdriver = 0
 
+  
+  //Screws for the airvent 
   screw1 = 0
   screw2 = 0
   screw3 = 0
   screw4 = 0
 
-  //barn 
+  //Barn
+  
+  //Default state for the combo lock on the violin case. When the player switches the numbers to the right combo,each combo will be set to true  
   lock = false; 
   lock1 = false;
   lock2 = false; 
   lock3 = false;
   lock4 = false
 
+  
+  //Starting numbers for the lock combo. As the player cycles through the numbers on the lock, these values will change 
   lockcombo = 1;
   lockcombo2 = 1; 
   lockcombo3 = 1; 
   lockcombo4 = 1;
 
+  //Violin case
   stateofviolincase = 0
 
+  
+  //Bomb
   stateofbomb = 0
   
+  
+  //Puzzle 3
+  
+  //Flashlight 
   stateofflashlight = 0
 
 
-  //Lab with clock
-
+  //First orietnation for the hour hand 
   hourhandorientation = 0
   
   
   minutehandorientation = 0
   
+  
+  //Analog clock's starting position 
   stateofanalogclock = 0
-  
+  //hour hand that has to collected 
   stateofhourhand = 0
-  
+  //Whether the hour hand is collected or not 
   hourhandiscollected = 0
   
+  
+  //Starting position and size for the analog clock
   startinganalogx = 600
   startinganalogy = 320
   startinganalogsizewidth = 80
   startinganalogsizeheight = 100
-  
+  //Ending position and size for the analog clock as it is moved and expanded in size. 
   endinganalogx= 400
   endinganalogy=  175
   endinganalogsizewidth=250
   endinganalogsizeheight=300   
   
+  
+  //Timer for the ending visual for the escape room 
   clockmove = 0
   
 
@@ -329,17 +347,13 @@ function setup()
 
 }
 
-function draw()
+function draw() /* This is an important function and will allow for the drawings and functions to happen and be update in real-time. Since this function refreshed itself rapidly every second, this is where a majority of the code will be executed, and therefore will be how the functions for the drawings on the program will be executed. The use of the refreshing is essential for the timer function, the moving of objects, switching of canvases and audio files. */
 {
 
-  movehourhand()
-  changehourhandorientation()
-
-  moveminutehand()
-  changeminutehandorientation()
 
 
-
+  
+//The function that swaps between canvases as the player progresses through the puzzle. This is made possible through having different indepenedent functions for each canvas, allowing for the cavanses to exist. Each canvas has its own use and puzzles and intricacies within them. 
   if (canvas == 1)
   {
     canvas1();
@@ -381,7 +395,7 @@ function draw()
 
 
 
-  if (timer == 1) //Timer
+  if (timer == 1) //The timer I have created for puzzle 2. Once the player enters puzzle 2, the timer starts and relies on the framerate of the program. With the framerate fo the program being 30 frames a second, I have used this fact and made it into a pseudo-timer. Once the program passes 300 frames, which is 10 seconds, the timer automatticaly recognizes this fact and swaps to the next canvas. I have also made it where every five seconds, a ticking clock sound effect plays to warn players when the canvases will swap. So for every 10 seconds, the canvases swap. There are three canvases and I have made it where every 10 seconds, it will cycle through one canvas until the third canvas at which it return to the original canvas and start all over in a loop. I have made this in order to challenge the players with a time constraint and immerse the players with the time travel theme a lot more. 
   {
     fill(255,0,0);
     time = time + 1
@@ -413,7 +427,8 @@ function draw()
     }
   }
 
-  if (time==900)
+  
+  if (time==900)// Once the player leaves the second room of the second puzzle, I had the room be reset so that it will not cause problems.
   {
     stateofairvent = 0;
 
@@ -426,7 +441,9 @@ function draw()
   }
 
   
-  if(hourhandorientation==3)
+  
+  
+  if(hourhandorientation==3)    //I have created a little visual once the player beats the game. Once the player aligns the hour hand to the correct position, the hour hand will continue to circle around and move faster and faster until the end screen is shown. I have created this in order to make a quick visual to indicate a victory. 
     {
       
       clockmove = clockmove +1
@@ -506,19 +523,19 @@ function draw()
   //barn
 
 
-  if(canvas == 3.2 && stateofviolincase == 0)
+  if(canvas == 3.2 && stateofviolincase == 0) //If the player is on the barn room and has not opened the violin case, a lock combo code is created
   {
   passCode1();
   }
 
 
-  if(lockcombo == 1 && lockcombo2 == 9 && lockcombo3 == 10 && lockcombo4 == 1)
+  if(lockcombo == 1 && lockcombo2 == 9 && lockcombo3 == 10 && lockcombo4 == 1)// Once the player enters the correct combination of "1901", the code goes away, the violin case opens and the bomb becomes collectable
   {
     stateofviolincase = 1
   }
 
 
-  if (stateofbomb == 1)
+  if (stateofbomb == 1)//The bomb is collected by the player and is placed in their inventory 
   {
     image(bomb, 107,533,54,44)
 
@@ -527,7 +544,7 @@ function draw()
 
 
   
-  
+  //This is where all the background music is played. For each puzzle, there is a song just that room. Once the song ends, it loops.
   
   
   if(canvas == 1) 
@@ -620,7 +637,7 @@ function draw()
   
 
   
-  if(stateofflashlight == 1)
+  if(stateofflashlight == 1) //This is the searchlight function where if the flashlight is picked up, there is only a small circle where the player can see the canvas and everything outside the circle is darkened. As the flashlight is attached to the person's cursor, the circle where the canvas can be seen moves as the player moves their cursor. The player must move around and search for the clue relating to the puzzle. Once the player presses 'q' on their keyboard, the player exits this mode and regains full vision of the canvas again.
 {
   image(six,700,100,60,60)
   
@@ -651,7 +668,7 @@ function draw()
 
 function canvas1() // Startscreen
 {
-  image(Startscreen,0,0,830,600);
+  image(Startscreen,0,0,830,600); //Background image for the starting screen 
 
 
 
@@ -660,7 +677,7 @@ function canvas1() // Startscreen
   rect(330,370,120,70);
   fill(0,0,0);
   textSize(40);
-  text("Start",345,420);
+  text("Start",345,420); 
   if(mouseX > 330 && mouseX < 450 && mouseY > 370 && mouseY < 440)
   {
     fill(204,0,0);
@@ -678,53 +695,63 @@ function canvas1() // Startscreen
       canvas = 2;
     }
   }
-
+//Creates a start button that starts the game off and transfers the player from the start screen to the first puzzle. 
 
 
 
 }
 
-function canvas2() // Lab
+function canvas2() // Lab: Puzzle 1
 {
-  image(Labratory,0,0,830,600);
-  image(Testtubes, 50,380,180,150);
-  image(Clock,270,200,130,80);
-  image(blackscreen,720,270,80,60)   
-  image(RedButton,750,420, 50,50)
+  image(Labratory,0,0,830,600); //Background image
+  
+  
+  image(Testtubes, 50,380,180,150);//Test tube rack with seven test tubes, which is a clue towards the code for the keypad lock 
+
+  image(Clock,270,200,130,80);//An analog clock that reads 8 PM, which is a part of the keypad combo 
+  
+  image(blackscreen,720,270,80,60)   //A blank computer screen that will display the  number three if the player clicks on the red button 
+  image(RedButton,750,420, 50,50) // A red button that will show a number three on the computer screen if the button is held.
 
 
-  C1 = sqrt((mouseX - 775)*(mouseX - 775) + (mouseY - 445) * (mouseY - 445)); // button
+  C1 = sqrt((mouseX - 775)*(mouseX - 775) + (mouseY - 445) * (mouseY - 445)); //Calculates the area of the red button and if the player is within it, the calculation will recognize it and give an output, with the use of the distance formula.
 
-  image(Number1,550,150,30,40)
+  image(Number1,550,150,30,40)//Draws the number one behind the beaker that will be raised in order to reveal the number
 
-  image(Dummykeypad,230,200,30,40);
-
-
+  image(Dummykeypad,230,200,30,40);//A keypad that players click on in order to expand and use as a useable keypad combo. Once the player clicks on the keypad, the player can use the key pad. 
 
 
-
-
-
-
-  itemGrid();
-
-
-
+  
+  if(mouseX > 50 && mouseX < 230 && mouseY > 380 && mouseY < 530)
+  { 
+    text("There are SEVEN test tubes in the rack",10,55);
+  }//If the player hovers over the test tube rack, it will display a hint that will help the player solve one of the digits for the keypad combo. 8
+  
+ 
+  var cursorishand = false;//Sets the default state of the cursor to be the arrow. Once a condition is met, this statement becomes true and the cursor becomes an arrow. This process will be done by a if and else statement later in the program.
 
 
 
 
-  // if state of beaker is 1 then the box is stationary
+  itemGrid();//Draws the item grid that represents the inventory of the player 
+
+
+
+
+
+
+//
+  // if state of beaker is 1 then the beaker is stationary
   if (stateofBeaker == 1)
   {
     // draw box at default location
-    image(Beaker,moveBeakerX,moveBeakerY,40,40)
+    image(Beaker,moveBeakerX,moveBeakerY,40,60)
   }
   // if state of box is 2 then the box is moving from left to right
   else if (stateofBeaker == 2)
   {
     // draw box
-    image(Beaker, moveBeakerX,moveBeakerY,40,40)
+    image(Beaker, moveBeakerX,moveBeakerY,40,60)
     // move box to the right by increasing the x value of it
 
     // if the x value is beyond a domain change the state of the box
@@ -741,28 +768,47 @@ function canvas2() // Lab
   else if (stateofBeaker == 3)
   {
     // draw box at destination location
-    image(Beaker,endBeakerX,endBeakerY,40,40);
+    image(Beaker,endBeakerX,endBeakerY,40,60);
+    
+    if (mouseX > endBeakerX && mouseX < endBeakerX + 40 && mouseY > endBeakerY && mouseY < endBeakerY + 60)
+    {
+      cursorishand = true;
+      if (mouseIsPressed == true)
+      {
+     stateofBeaker = 1
+      }
+    }
+
+    
+    
+  
   }
 
 
   //Time
 
 
-  if (mouseX > 270 && mouseX < 400 && mouseY > 200 && mouseY < 280)
+  if(mouseX > 270 && mouseX < 400 && mouseY > 200 && mouseY < 280)
+    
   {
-    cursor(HAND);
+    cursorishand = true
+    
     if (mouseIsPressed == true)
     {
       clocksound.play()
     }
   }
 
+ 
+
+
 
 
 
   if (C1 < 25)
   {
-    cursor(HAND);
+    cursorishand = true
+    
     if (mouseIsPressed == true)
     {
       image(Number3,750,280,20, 40)
@@ -771,18 +817,15 @@ function canvas2() // Lab
 
 
   //Time
-  if (mouseX > 543 && mouseX < 583 && mouseY > 150 && mouseY < 190)
+  if (mouseX > moveBeakerX && mouseX < moveBeakerX + 40 && mouseY > moveBeakerY && mouseY < moveBeakerY + 60)
   {
-    cursor(HAND);
+    cursorishand = true
     if (mouseIsPressed == true)
     {
       stateofBeaker = 2;
     }
   }
-  else
-  {
-    cursor(ARROW);
-  }
+
 
 
   //Clipboard
@@ -794,20 +837,31 @@ function canvas2() // Lab
   else
   {
     image(Clipboard, 450,200,50,80);
+    
   }
 
   //Dummy Keycode
 
   if (mouseX > 230 && mouseX < 260 && mouseY > 200 && mouseY < 240)
   {
-    cursor(HAND);
+    cursorishand = true
     if (mouseIsPressed == true)
     {
       canvas = 2.1
     }
   }
 
-
+  // use a single if... else at the end to change the cursor
+  // default to arrow and change to hand otherwise
+  if (cursorishand == true)
+    {
+     cursor(HAND) 
+      
+    }
+  else
+{
+  cursor(ARROW)
+}
 
 
 }
@@ -1006,7 +1060,7 @@ function canvas3() // Airplane
   if (cargohatch == 1) //Opened hatch
   {
     timer = 0
-    image(openhatch,60,260,130,130) 
+    image(openhatch,650,260,130,130) 
 
     if(mouseX > 650 && mouseX < 780 && mouseY > 260 && mouseY < 390 && mouseIsPressed == true)
     {
@@ -1732,26 +1786,6 @@ function pass4Button()
 
 
 
-function movehourhand()
-{
-
-}
-
-function changehourhandorientation()
-{
-
-}
-function moveminutehand()
-{
-
-}
-function changeminutehandorientation()
-{
-
-
-
-}
-
 
 
 
@@ -1901,9 +1935,9 @@ function canvas5() // Outside
     if(hourhandorientation==0)
     {
       image(hourhandnorth, 495,210,55,130)
-      image(rightarrow,530,240,100,50)
+      image(rightarrow,530,150,100,50)
       
-      if (mouseX > 530 && mouseX < 630 && mouseY > 240 && mouseY < 290)
+      if (mouseX > 530 && mouseX < 630 && mouseY > 150 && mouseY < 200)
         {
           cursor(HAND);
           if (mouseIsPressed == true)
@@ -1912,8 +1946,8 @@ function canvas5() // Outside
           }
         }
       
-      image(leftarrow,420,240,100,50)
-      if (mouseX > 420 && mouseX < 520 && mouseY > 240 && mouseY < 290)
+      image(leftarrow,420,150,100,50)
+      if (mouseX > 420 && mouseX < 520 && mouseY > 150 && mouseY < 200)
       {
         cursor(HAND);
         if (mouseIsPressed == true)
@@ -1929,9 +1963,9 @@ function canvas5() // Outside
       image(hourhandeast, 510,295,130,55)
       
       
-      image(downarrow,540,330,55,100)
+      image(downarrow,630,330,55,100)
       
-      if (mouseX > 540 && mouseX < 595 && mouseY > 330 && mouseY < 430)
+      if (mouseX > 630 && mouseX < 685 && mouseY > 330 && mouseY < 430)
       {
         cursor(HAND);
         if (mouseIsPressed == true)
@@ -1940,9 +1974,9 @@ function canvas5() // Outside
         }
       }
       
-      image(uparrow,540,220,55,100)
+      image(uparrow,630,220,55,100)
 
-      if (mouseX > 540 && mouseX < 595 && mouseY > 220 && mouseY < 320)
+      if (mouseX > 630 && mouseX < 685 && mouseY > 220 && mouseY < 320)
       {
         cursor(HAND);
         if (mouseIsPressed == true)
@@ -1961,9 +1995,9 @@ function canvas5() // Outside
       
       
       
-      image(downarrow,420,330,55,100)
+      image(downarrow,330,330,55,100)
 
-      if (mouseX > 420 && mouseX < 475 && mouseY > 330 && mouseY < 430)
+      if (mouseX > 330 && mouseX < 385 && mouseY > 330 && mouseY < 430)
       {
         cursor(HAND);
         if (mouseIsPressed == true)
@@ -1972,9 +2006,9 @@ function canvas5() // Outside
         }
       }
 
-      image(uparrow,420,220,55,100)
+      image(uparrow,330,220,55,100)
 
-      if (mouseX > 420 && mouseX < 475 && mouseY > 220 && mouseY < 320)
+      if (mouseX > 330 && mouseX < 385 && mouseY > 220 && mouseY < 320)
       {
         cursor(HAND);
         if (mouseIsPressed == true)
