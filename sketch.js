@@ -538,7 +538,7 @@ function draw() /* This is an important function and will allow for the drawings
   //barn
 
 
-  if(canvas == 3.2 && stateofviolincase == 0) //If the player is on the barn room and has not opened the violin case, a lock combo code is created
+  if(canvas == 3.2 && stateofviolincase == 0) //If the player is on the barn room and has not opened the violin case, a lock combo code is created where the player has to cycle through the numbers to find the right code 
   {
   passCode1();
   }
@@ -739,7 +739,7 @@ function canvas2() // Lab: Puzzle 1
   
   if(mouseX > 50 && mouseX < 230 && mouseY > 380 && mouseY < 530)
   { 
-    text("There are SEVEN test tubes in the rack",10,55);
+    text("There are SEVEN test tubes on the rack.",10,55);
   }//If the player hovers over the test tube rack, it will display a hint that will help the player solve one of the digits for the keypad combo. 8
   
  
@@ -1139,7 +1139,7 @@ function canvas3_1() //Puzzle 2, Room 2: Train car. After ten seconds in the fir
     image(airvent, 580,320,200,105)
 
   }
-  if (stateofairvent==1)
+  if (stateofairvent==1) //If the screws on the airvent are removed, the code behind it is revealed 
   {
 
     image(codeairvent, 580,320,200,105)
@@ -1148,7 +1148,7 @@ function canvas3_1() //Puzzle 2, Room 2: Train car. After ten seconds in the fir
 
 
 
-  if(mouseX > 60 && mouseX < 140 && mouseY > 430 && mouseY < 490)
+  if(mouseX > 60 && mouseX < 140 && mouseY > 430 && mouseY < 490)//If the player clicks on the screwdriver when it is on the table, the screwdriver is moved into the player's inventory
   {
     cursor(HAND);
     if (mouseIsPressed == true)
@@ -1159,7 +1159,7 @@ function canvas3_1() //Puzzle 2, Room 2: Train car. After ten seconds in the fir
   }
 
 
-  if(mouseX > 20 && mouseX < 90 && mouseY > 520 && mouseY < 590)
+  if(mouseX > 20 && mouseX < 90 && mouseY > 520 && mouseY < 590)//If the player clicks on the screwdriver in their inventory, the screwdriver replaces the player's cursor for them to use to unscrew the screws off the vent. 
   {
     cursor(HAND);
     if (mouseIsPressed == true)
@@ -1169,16 +1169,16 @@ function canvas3_1() //Puzzle 2, Room 2: Train car. After ten seconds in the fir
 
   }
 
-  if (stateofscrewdriver==0)
+  if (stateofscrewdriver==0) //The screwdriver is in its default state on the table to be able to be picked up
   {
     image(screwdriver,60,430,80,60)
   }
-  if (stateofscrewdriver==1)
+  if (stateofscrewdriver==1)//The screwdriver is placed into the inventory once picked up
   {
     image(screwdriver,29,530,60,48)
 
   }
-  if (stateofscrewdriver==2)
+  if (stateofscrewdriver==2)//The screwdriver replaces the player's cursor 
   {
 
     noCursor();
@@ -1186,6 +1186,8 @@ function canvas3_1() //Puzzle 2, Room 2: Train car. After ten seconds in the fir
 
 
 
+    
+    //If the player has the screwdriver as their cursor, they have to unscrew all four screws from the four corners of the airvent. Doing so will play a sound effect and will remove the airvent to reveal the code beneath it that thye will use for the next room. 
     if(mouseX > 580 && mouseX < 600 && mouseY > 320 && mouseY < 340)
     {
       cursor(HAND);
@@ -1231,6 +1233,7 @@ function canvas3_1() //Puzzle 2, Room 2: Train car. After ten seconds in the fir
     }
 
 
+    //If all four screws are "screwed off", the airvent comes off and the screwdriver disappears
     if(screw1==1 && screw2==1 && screw3==1 && screw4==1)
     {
       stateofscrewdriver=3
@@ -1239,6 +1242,7 @@ function canvas3_1() //Puzzle 2, Room 2: Train car. After ten seconds in the fir
 
   }
 
+  //If the screws are all off, the airvent comes off
 
   if (stateofscrewdriver==3)
   {
@@ -1251,22 +1255,22 @@ function canvas3_1() //Puzzle 2, Room 2: Train car. After ten seconds in the fir
 }
 
 
-function canvas3_2() // barn
+function canvas3_2() //Puzzle 2, Room 3: Barn
 {
   textSize(15);
   cursor(ARROW);
-  image(barn,0,0,830,520)
+  image(barn,0,0,830,520)//Background picture of a barn
   itemGrid();
 
 
-  if (stateofviolincase == 0)
+  if (stateofviolincase == 0) //The violin case is closed and will be opened if the correct code of "1901" is inputted. 
   {
     image(violin,100,320,400,250)
   }
 
 
 
-  if (stateofviolincase == 1)
+  if (stateofviolincase == 1) //If the right code is inputted of "1901" the violin case is opened and the bomb inside is able to be picked up and placed into the player's inventory for use in room 1 on the plane.
   {
     image(openviolin,100,270,400,250)
 
@@ -1311,7 +1315,7 @@ function canvas3_2() // barn
 
 
 
-function itemGrid()
+function itemGrid() //The item grid that acts as the inventory space for the player 
 {
   fill(50,50,50);
   rect(0,510,830,620);
@@ -1347,7 +1351,7 @@ function itemGrid()
   rect(740,520,70,70);
 }
 
-function mouseReleased()
+function mouseReleased() //For the combo lock to make sure the numbers stay 
 {
 
 
@@ -1372,16 +1376,16 @@ function mouseReleased()
   }
 }
 
-function passCode1()
+function passCode1() //This is the coding for the combo lock for each digit of the combo lock for the violin case in room 3 of puzzle 2 
 {
   textSize(15);
-  pass1Button();
-  pass2Button();
-  pass3Button();
-  pass4Button();
+  pass1Button();//Combo 1
+  pass2Button();//Combo 2
+  pass3Button();//Combo 3
+  pass4Button();//Combo 4
 
   fill(255);
-  rect(px1-2,455,20,20);
+  rect(px1-2,455,20,20);//Interface
   rect(px2-3,455,20,20);
   rect(px3-3,455,20,20);
   rect(px4-3,455,20,20);
@@ -1396,6 +1400,9 @@ function passCode1()
   fill(0);
   strokeWeight(0);
 
+  
+  
+  //For the first combo lock, as the user presses the grey button above it, it will change the number that is outputted and the number that is displayed  on the interface. 
   if(lockcombo == 1)
   {
     text("1",px1,py+25);
@@ -1437,6 +1444,9 @@ function passCode1()
     text("0",px1,py+25);
   }
 
+  
+  
+  //For the second combo lock, as the user presses the grey button above it, it will change the number that is outputted and the number that is displayed  on the interface. 
   if(lockcombo2 == 1)
   {
     text("1",px2,py+25);
@@ -1478,6 +1488,8 @@ function passCode1()
     text("0",px2,py+25);
   }
 
+  
+  //For the third combo lock, as the user presses the grey button above it, it will change the number that is outputted and the number that is displayed  on the interface. 
   if(lockcombo3 == 1)
   {
     text("1",px3,py+25);
@@ -1520,6 +1532,7 @@ function passCode1()
   }
 
 
+  //For the fourth combo lock, as the user presses the grey button above it, it will change the number that is outputted and the number that is displayed on the interface. 
 
   if(lockcombo4 == 1)
   {
@@ -1565,7 +1578,7 @@ function passCode1()
 
 }
 
-function pass1Button()
+function pass1Button() //Once the user presses the grey button above the number, this function outputs a number that corresponds with clicks. The output given is utilized to "lock" the violin case until all four numbers are correct.
 {
   textSize(30);
   if (lock1 == false && mouseX > px1 && mouseX < px1+15 && mouseY > py && mouseY < py+6 && mouseIsPressed == true)
@@ -1623,7 +1636,7 @@ function pass1Button()
   }
 }
 
-function pass2Button()
+function pass2Button()//Once the user presses the grey button above the number, this function outputs a number that corresponds with clicks. The output given is utilized to "lock" the violin case until all four numbers are correct.
 {
   if (lock2 == false && mouseX > px2 && mouseX < px2+15 && mouseY > py && mouseY < py+6 && mouseIsPressed == true)
   {
@@ -1680,7 +1693,7 @@ function pass2Button()
   }
 }
 
-function pass3Button()
+function pass3Button()//Once the user presses the grey button above the number, this function outputs a number that corresponds with clicks. The output given is utilized to "lock" the violin case until all four numbers are correct.
 {
   if (lock3 == false && mouseX > px3 && mouseX < px3+15 && mouseY > py && mouseY < py+6 && mouseIsPressed == true)
   {
@@ -1739,7 +1752,7 @@ function pass3Button()
 }
 
 
-function pass4Button()
+function pass4Button()//Once the user presses the grey button above the number, this function outputs a number that corresponds with clicks. The output given is utilized to "lock" the violin case until all four numbers are correct.
 {
   if (lock4 == false && mouseX > px4 && mouseX < px4+15 && mouseY > py && mouseY < py+6 && mouseIsPressed == true)
   {
@@ -1804,14 +1817,14 @@ function pass4Button()
 
 
 
-function canvas5() // Outside
+function canvas5() //Puzzle 3: the beachhouse
 {
-  image(beachhouse,0,0,830,600)
+  image(beachhouse,0,0,830,600)//Background image 
 
   itemGrid();
 
   
-  if(hourhandiscollected==0)
+  if(hourhandiscollected==0)//The hourhand is dettached from the clock and has to be reattached. This is the starting position where it has to be clicked on to be collected. 
     {
   
   image(hourhandnorth,300,130,30,70)
@@ -1828,13 +1841,13 @@ function canvas5() // Outside
       
     }
   
-  if(hourhandiscollected == 1)
+  if(hourhandiscollected == 1)//Hour hand is in inventory 
     {
       image(hourhandnorth,29,530,60,48)
      
       
 
-      if (mouseX > 20 && mouseX < 90 && mouseY > 520 && mouseY < 590)
+      if (mouseX > 20 && mouseX < 90 && mouseY > 520 && mouseY < 590) //If it in the player's inventory and the analog clock is in its final position, the hour hand will go to the analog clock 
       {
         cursor(HAND);
         if (mouseIsPressed == true)
@@ -1847,7 +1860,7 @@ function canvas5() // Outside
  
   
   
-  if (stateofanalogclock == 0)
+  if (stateofanalogclock == 0)//Analog clock is in its starting position as a tinier version 
   
     {
   image(analogclock,600,320,80,100)
@@ -1871,7 +1884,7 @@ function canvas5() // Outside
       }
     }
   
-  if (stateofanalogclock == 1)
+  if (stateofanalogclock == 1)//If clicked upon, the clock grows in size and moves position to about the middle of the screen 
     {
       cursor(ARROW)
       
@@ -1886,7 +1899,7 @@ function canvas5() // Outside
       
       
       
-      if(startinganalogx == 400)
+      if(startinganalogx == 400) //Once the clock moves across to a certain point, it will start to stop and move to its final position
       {
         stateofanalogclock = 2
         
@@ -1906,7 +1919,7 @@ function canvas5() // Outside
       
     }
   
-  if(stateofanalogclock==2)
+  if(stateofanalogclock==2)//Clock is drawn at its final position and size 
     {
       cursor(ARROW)
 
@@ -1920,20 +1933,20 @@ function canvas5() // Outside
       
     }
   
-  if(stateofanalogclock==3)
+  if(stateofanalogclock==3)//Clock disappears
     
     {
       //disapperas
       
     }
   
-  if (stateofflashlight == 0)
+  if (stateofflashlight == 0)//The flashlight is at its starting position and is able to be picked up
     {
       image(flashlight,200,430,100,50)
     }
   
 
-  if (mouseX > 200 && mouseX < 300 && mouseY > 430 && mouseY < 480)
+  if (mouseX > 200 && mouseX < 300 && mouseY > 430 && mouseY < 480)//If the flashlight is clicked on, the flashlight replaced the player's cursor and the searchlight function is activated 
   {
     cursor(HAND);
     if (mouseIsPressed == true)
@@ -1942,7 +1955,7 @@ function canvas5() // Outside
     }
   }
   
-  if(hourhandiscollected == 2)
+  if(hourhandiscollected == 2)//If the analog clock is an its final position and the hour hand clicked on while in the player's inventory, the hour hand is placed onto the big analog clock. The player must then figure out that the clue of the number six means they have to orientate the hour hand to the six o'clock position. With the arrows provided, it will turn the hour hand plus or minus three hours, so that the players must turn it from 12 to 6. Once the player does so, a small visual will play and the player has escaped the room. 
   {
     
     
@@ -2045,7 +2058,7 @@ function canvas5() // Outside
   
 }
 
-function canvas6()
+function canvas6()//Endscreen once the player has escaped the escape room. 
 {
   
   
