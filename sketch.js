@@ -739,6 +739,7 @@ function canvas2() // Lab: Puzzle 1
   
   if(mouseX > 50 && mouseX < 230 && mouseY > 380 && mouseY < 530)
   { 
+    textSize(30)
     text("There are SEVEN test tubes on the rack.",10,55);
   }//If the player hovers over the test tube rack, it will display a hint that will help the player solve one of the digits for the keypad combo. 8
   
